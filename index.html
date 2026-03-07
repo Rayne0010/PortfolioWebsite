@@ -131,59 +131,42 @@
   .d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
 
   @media(max-width:768px){
-    /* Nav */
+    body{cursor:auto}
+    .cursor,.cursor-ring{display:none}
+
     nav{padding:16px 20px}
     .nav-links{display:none}
 
-    /* Hide custom cursor on touch */
-    .cursor,.cursor-ring{display:none}
-    body{cursor:auto}
-    a,button{cursor:pointer}
-
-    /* Hero */
-    .hero{padding:0 20px;min-height:100svh}
+    .hero{padding:80px 20px 100px;min-height:100svh;justify-content:center}
+    .hero-name{font-size:clamp(44px,13vw,80px)}
+    .hero-desc{font-size:12px;max-width:100%}
+    .hero-cta{flex-direction:column;gap:10px}
+    .btn-primary,.btn-outline{text-align:center;padding:14px 20px}
+    .hero-scroll{left:20px;bottom:20px}
     .hero-glow{width:300px;height:300px;left:50%;top:40%}
-    .hero-tag{font-size:10px;margin-bottom:16px}
-    .hero-desc{font-size:12px;max-width:100%;margin-bottom:36px}
-    .hero-cta{flex-direction:column;gap:12px;align-items:flex-start}
-    .btn-primary,.btn-outline{width:100%;text-align:center;padding:14px 24px}
-    .hero-scroll{left:20px;bottom:24px}
     .status-bar{display:none}
 
-    /* Sections */
     section{padding:72px 20px}
+    .contact-section{padding:80px 20px}
     .section-header{margin-bottom:40px}
 
-    /* Projects */
     .projects-grid{grid-template-columns:1fr}
     .project-card{padding:24px}
 
-    /* Achievements */
-    .achievement-item{grid-template-columns:1fr;gap:8px;padding:20px 20px}
-    .achievement-badge{align-self:flex-start}
-
-    /* Skills */
     .skills-grid{grid-template-columns:repeat(2,1fr)}
 
-    /* Experience */
+    .achievement-item{grid-template-columns:1fr;gap:8px;padding:20px 16px}
+    .achievement-badge{align-self:flex-start}
+
     .experience-timeline{padding-left:24px}
     .exp-item::before{left:-28px}
-    .exp-desc{max-width:100%}
 
-    /* Contact */
-    .contact-section{padding:80px 20px}
-    .contact-links{flex-direction:column;align-items:center}
-    .contact-links .btn-primary,.contact-links .btn-outline{width:100%;max-width:280px;text-align:center}
-
-    /* Footer */
-    footer{flex-direction:column;gap:8px;padding:20px;text-align:center}
+    footer{flex-direction:column;gap:6px;padding:20px;text-align:center}
   }
-
   @media(max-width:480px){
     .skills-grid{grid-template-columns:1fr}
-    .hero-name{letter-spacing:-.04em}
-    .project-tags{gap:6px}
-    .achievement-item{padding:16px}
+    .hero-name{font-size:clamp(40px,14vw,72px)}
+    .contact-heading{font-size:clamp(32px,10vw,60px)}
   }
 </style>
 </head>
@@ -227,7 +210,7 @@
   </div>
   <div class="status-bar">
     <div class="status-line">// <span>status</span>: grade 12 student</div>
-    <div class="status-line">// <span>location</span>: Toronto, CA</div>
+    <div class="status-line">// <span>location</span>: toronto, CA</div>
     <div class="status-line">// <span>stack</span>: JS, hardware, networks</div>
     <div class="status-line">// <span>cert</span>: NL, swim instructor, first aid</div>
   </div>
@@ -396,7 +379,7 @@
 
 <footer>
   <span>// julian deonarine &copy; 2025</span>
-  <span>built with intention &mdash; Toronto, CA</span>
+  <span>built with intention &mdash; toronto, CA</span>
 </footer>
 
 <script>
