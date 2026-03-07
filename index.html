@@ -68,9 +68,9 @@
   .section-line{flex:1;height:1px;background:var(--border)}
 
   .projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:2px}
-  .project-card{background:var(--surface);border:1px solid var(--border);padding:32px;position:relative;overflow:hidden;transition:border-color .3s;cursor:none}
+  .project-card{display:block;text-decoration:none;background:var(--surface);border:1px solid var(--border);padding:32px;position:relative;overflow:hidden;transition:border-color .3s,transform .3s;cursor:none}
   .project-card::before{content:'';position:absolute;inset:0;background:var(--magenta-glow2);opacity:0;transition:opacity .3s}
-  .project-card:hover{border-color:var(--magenta-dim)}
+  .project-card:hover{border-color:var(--magenta-dim);transform:translateY(-3px)}
   .project-card:hover::before{opacity:1}
   .project-glow{position:absolute;top:-60px;right:-60px;width:180px;height:180px;background:radial-gradient(circle,var(--magenta-glow) 0%,transparent 70%);opacity:0;transition:opacity .3s;pointer-events:none}
   .project-card:hover .project-glow{opacity:1}
@@ -165,7 +165,7 @@
     <span class="line2">Deonarine</span>
   </h1>
   <p class="hero-desc">
-    Developer, lifeguard, and technician. Building things at the intersection of
+    Developer, lifeguard, and student coder. Building things at the intersection of
     <span class="hl">code</span>,
     <span class="hl">hardware</span>, and
     <span class="hl">service</span>.<br>
@@ -180,7 +180,7 @@
     Scroll to explore
   </div>
   <div class="status-bar">
-    <div class="status-line">// <span>status</span>: student + technician</div>
+    <div class="status-line">// <span>status</span>: grade 12 student</div>
     <div class="status-line">// <span>location</span>: toronto, ca</div>
     <div class="status-line">// <span>stack</span>: js, hardware, networks</div>
     <div class="status-line">// <span>cert</span>: NL, swim instructor, first aid</div>
@@ -194,7 +194,7 @@
     <div class="section-line"></div>
   </div>
   <div class="projects-grid">
-    <div class="project-card reveal d1">
+    <a href="https://github.com/Rayne0010/chromebook-cart-security" target="_blank" class="project-card reveal d1">
       <div class="project-glow"></div>
       <div class="project-lang">C++ &mdash; TEJ4M</div>
       <div class="project-title">Chromebook Cart Security</div>
@@ -202,9 +202,8 @@
       <div class="project-tags">
         <span class="tag">Arduino</span><span class="tag">RFID</span><span class="tag">FSM</span><span class="tag">C++</span>
       </div>
-      <a href="https://github.com/Rayne0010/chromebook-cart-security" target="_blank" class="project-link">github &rarr;</a>
-    </div>
-    <div class="project-card reveal d2">
+    </a>
+    <a href="https://github.com/Rayne0010/tri-mode-env-monitor" target="_blank" class="project-card reveal d2">
       <div class="project-glow"></div>
       <div class="project-lang">C++ &mdash; TEJ4M</div>
       <div class="project-title">Tri-Mode Env. Monitor</div>
@@ -212,9 +211,8 @@
       <div class="project-tags">
         <span class="tag">Arduino</span><span class="tag">Fingerprint</span><span class="tag">Servo</span><span class="tag">C++</span>
       </div>
-      <a href="https://github.com/Rayne0010/tri-mode-env-monitor" target="_blank" class="project-link">github &rarr;</a>
-    </div>
-    <div class="project-card reveal d3">
+    </a>
+    <a href="https://github.com/Rayne0010/mars-rover-sim" target="_blank" class="project-card reveal d3">
       <div class="project-glow"></div>
       <div class="project-lang">C++ &mdash; TEJ3M</div>
       <div class="project-title">Mars Rover Simulator</div>
@@ -222,19 +220,17 @@
       <div class="project-tags">
         <span class="tag">Arduino</span><span class="tag">Dual-Board</span><span class="tag">Sensors</span><span class="tag">C++</span>
       </div>
-      <a href="https://github.com/Rayne0010/mars-rover-sim" target="_blank" class="project-link">github &rarr;</a>
-    </div>
-    <div class="project-card reveal d4">
+    </a>
+    <a href="https://github.com/Rayne0010/DollaSense" target="_blank" class="project-card reveal d4">
       <div class="project-glow"></div>
       <div class="project-lang">Java &mdash; ICS3U</div>
       <div class="project-title">DollaSense</div>
-      <p class="project-desc">Java console budget tracker supporting four user profiles (solo adult, family, unemployed, working teen). Tracks mandatory and optional spending, compares against previous sessions, displays a JFreeChart pie chart, and exports a PNG + text report.</p>
+      <p class="project-desc">Java console budget tracker supporting four user profiles (solo adult, family, unemployed, working teen). Tracks spending, compares against previous sessions, displays a JFreeChart pie chart, and exports a PNG + text report to Downloads.</p>
       <div class="project-tags">
         <span class="tag">Java</span><span class="tag">JFreeChart</span><span class="tag">Finance</span>
       </div>
-      <a href="https://github.com/Rayne0010/DollaSense" target="_blank" class="project-link">github &rarr;</a>
-    </div>
-    <div class="project-card reveal d1">
+    </a>
+    <a href="https://github.com/Rayne0010/hangman" target="_blank" class="project-card reveal d1">
       <div class="project-glow"></div>
       <div class="project-lang">Java &mdash; ICS3U</div>
       <div class="project-title">Hangman</div>
@@ -242,18 +238,7 @@
       <div class="project-tags">
         <span class="tag">Java</span><span class="tag">CLI</span><span class="tag">Game</span>
       </div>
-      <a href="https://github.com/Rayne0010/hangman" target="_blank" class="project-link">github &rarr;</a>
-    </div>
-    <div class="project-card reveal d2">
-      <div class="project-glow"></div>
-      <div class="project-lang">Processing &mdash; Seneca</div>
-      <div class="project-title">Seneca</div>
-      <p class="project-desc">A Processing-based creative coding project exploring visual and interactive programming concepts.</p>
-      <div class="project-tags">
-        <span class="tag">Processing</span><span class="tag">Creative Code</span>
-      </div>
-      <a href="https://github.com/Rayne0010/-" target="_blank" class="project-link">github &rarr;</a>
-    </div>
+    </a>
   </div>
 </section>
 
@@ -309,14 +294,14 @@
     <div class="section-line"></div>
   </div>
   <div class="skills-grid">
-    <div class="skill-item reveal d1" data-lvl="0.82"><div class="skill-name">JavaScript</div><div class="skill-bar-bg"><div class="skill-bar-fill"></div></div><div class="skill-level">CISCO Certified</div></div>
-    <div class="skill-item reveal d2" data-lvl="0.80"><div class="skill-name">IT Support &amp; Networking</div><div class="skill-bar-bg"><div class="skill-bar-fill"></div></div><div class="skill-level">Professional Experience</div></div>
-    <div class="skill-item reveal d3" data-lvl="0.78"><div class="skill-name">Hardware &amp; Systems</div><div class="skill-bar-bg"><div class="skill-bar-fill"></div></div><div class="skill-level">Proficient</div></div>
-    <div class="skill-item reveal d4" data-lvl="0.85"><div class="skill-name">Bilingual (EN / FR)</div><div class="skill-bar-bg"><div class="skill-bar-fill"></div></div><div class="skill-level">French Immersion</div></div>
-    <div class="skill-item reveal d1" data-lvl="0.95"><div class="skill-name">Lifeguarding &amp; First Aid</div><div class="skill-bar-bg"><div class="skill-bar-fill"></div></div><div class="skill-level">NL Certified</div></div>
-    <div class="skill-item reveal d2" data-lvl="0.90"><div class="skill-name">Swimming (Competitive)</div><div class="skill-bar-bg"><div class="skill-bar-fill"></div></div><div class="skill-level">Club Level</div></div>
-    <div class="skill-item reveal d3" data-lvl="0.75"><div class="skill-name">Piano</div><div class="skill-bar-bg"><div class="skill-bar-fill"></div></div><div class="skill-level">RCM Level 7</div></div>
-    <div class="skill-item reveal d4" data-lvl="0.88"><div class="skill-name">Customer Service</div><div class="skill-bar-bg"><div class="skill-bar-fill"></div></div><div class="skill-level">Multi-role Experience</div></div>
+    <div class="skill-item reveal d1" data-lvl="0.55"><div class="skill-name">JavaScript</div><div class="skill-bar-bg"><div class="skill-bar-fill"></div></div><div class="skill-level">CISCO Certified</div></div>
+    <div class="skill-item reveal d2" data-lvl="0.65"><div class="skill-name">IT Support &amp; Networking</div><div class="skill-bar-bg"><div class="skill-bar-fill"></div></div><div class="skill-level">Co-op Experience</div></div>
+    <div class="skill-item reveal d3" data-lvl="0.70"><div class="skill-name">Hardware &amp; Systems</div><div class="skill-bar-bg"><div class="skill-bar-fill"></div></div><div class="skill-level">Multiple Arduino Projects</div></div>
+    <div class="skill-item reveal d4" data-lvl="0.72"><div class="skill-name">Bilingual (EN / FR)</div><div class="skill-bar-bg"><div class="skill-bar-fill"></div></div><div class="skill-level">French Immersion</div></div>
+    <div class="skill-item reveal d1" data-lvl="0.95"><div class="skill-name">Lifeguarding &amp; First Aid</div><div class="skill-bar-bg"><div class="skill-bar-fill"></div></div><div class="skill-level">NL + CPR-C Certified</div></div>
+    <div class="skill-item reveal d2" data-lvl="0.80"><div class="skill-name">Swimming (Competitive)</div><div class="skill-bar-bg"><div class="skill-bar-fill"></div></div><div class="skill-level">Club Level</div></div>
+    <div class="skill-item reveal d3" data-lvl="0.68"><div class="skill-name">Piano</div><div class="skill-bar-bg"><div class="skill-bar-fill"></div></div><div class="skill-level">RCM Level 7</div></div>
+    <div class="skill-item reveal d4" data-lvl="0.75"><div class="skill-name">Customer Service</div><div class="skill-bar-bg"><div class="skill-bar-fill"></div></div><div class="skill-level">Multi-role Experience</div></div>
   </div>
 </section>
 
@@ -359,9 +344,8 @@
   <h2 class="contact-heading reveal d1">Get In<br><span class="hollow">Touch.</span></h2>
   <p class="contact-sub reveal d2">Open to collaborations, projects, and conversations.<span class="blink">_</span></p>
   <div class="contact-links reveal d3">
-    <a href="#" class="btn-primary" id="emailBtn">Send Email</a>
+    <a href="mailto:juliandeonarine296@gmail.com" class="btn-primary">Send Email</a>
     <a href="https://github.com/Rayne0010" target="_blank" class="btn-outline">GitHub</a>
-    <a href="#" class="btn-outline">LinkedIn</a>
   </div>
 </section>
 
@@ -372,10 +356,6 @@
 
 <script>
 (function(){
-  // Email built at runtime to avoid scrapers and Cloudflare mangling
-  document.getElementById('emailBtn').href='mailto:'+'juliandeonarine296'+'@'+'gmail.com';
-
-  // Cursor
   var c=document.getElementById('cursor'),r=document.getElementById('cring');
   var mx=0,my=0,rx=0,ry=0;
   document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;c.style.left=mx+'px';c.style.top=my+'px';});
