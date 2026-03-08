@@ -13,7 +13,14 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <link rel="icon" type="image/png" href="favicon.png">
+<!-- Preconnect to Google Fonts origin for faster font load -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+<!-- Canonical URL prevents duplicate content issues -->
+<link rel="canonical" href="https://rayne0010.github.io/PortfolioWebsite/">
+<!-- Theme color: tints browser chrome on Android Chrome / Safari PWA -->
+<meta name="theme-color" content="#080810">
 <style>
   /* ── Design Tokens ──────────────────────────────────────────────────── */
   :root {
@@ -273,7 +280,15 @@
     .achievement-item{padding:16px}
   }
 
-  /* ── Touch / No-Hover Devices ───────────────────────────────────────── */
+  /* ── Reduced Motion Accessibility ───────────────────────────────────── */
+  /* Respects the OS-level "Reduce Motion" preference (vestibular disorders,
+     epilepsy, personal preference). Disables all non-essential animations
+     and transitions while keeping the layout intact. */
+  @media(prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
+    html{scroll-behavior:auto}
+    .hero-tag,.hero-name,.hero-desc,.hero-cta,.hero-scroll,.status-bar{opacity:1;transform:none}
+  } ───────────────────────────────────────── */
   /* Reverts hover-only effects on touchscreens at any viewport width
      (e.g. iPad in landscape). Also restores proper cursor values since
      the custom cursor is hidden. */
@@ -377,7 +392,7 @@
     <div class="section-line"></div>
   </div>
   <div class="projects-grid">
-    <a href="https://github.com/Rayne0010/chromebook-cart-security" target="_blank" class="project-card featured reveal d1">
+    <a href="https://github.com/Rayne0010/chromebook-cart-security" target="_blank" rel="noopener noreferrer" class="project-card featured reveal d1">
       <div class="project-glow"></div>
       <div class="featured-badge"><span class="featured-dot"></span>Current Project</div>
       <div class="project-lang">C++ &mdash; TEJ4M</div>
@@ -387,7 +402,7 @@
         <span class="tag">Arduino</span><span class="tag">RFID</span><span class="tag">FSM</span><span class="tag">C++</span>
       </div>
     </a>
-    <a href="https://github.com/Rayne0010/tri-mode-env-monitor" target="_blank" class="project-card reveal d2">
+    <a href="https://github.com/Rayne0010/tri-mode-env-monitor" target="_blank" rel="noopener noreferrer" class="project-card reveal d2">
       <div class="project-glow"></div>
       <div class="project-lang">C++ &mdash; TEJ4M</div>
       <div class="project-title">Tri-Mode Env. Monitor</div>
@@ -396,7 +411,7 @@
         <span class="tag">Arduino</span><span class="tag">Fingerprint</span><span class="tag">Servo</span><span class="tag">C++</span>
       </div>
     </a>
-    <a href="https://github.com/Rayne0010/mars-rover-sim" target="_blank" class="project-card reveal d3">
+    <a href="https://github.com/Rayne0010/mars-rover-sim" target="_blank" rel="noopener noreferrer" class="project-card reveal d3">
       <div class="project-glow"></div>
       <div class="project-lang">C++ &mdash; TEJ3M</div>
       <div class="project-title">Mars Rover Simulator</div>
@@ -405,7 +420,7 @@
         <span class="tag">Arduino</span><span class="tag">Dual-Board</span><span class="tag">Sensors</span><span class="tag">C++</span>
       </div>
     </a>
-    <a href="https://github.com/Rayne0010/DollaSense" target="_blank" class="project-card reveal d4">
+    <a href="https://github.com/Rayne0010/DollaSense" target="_blank" rel="noopener noreferrer" class="project-card reveal d4">
       <div class="project-glow"></div>
       <div class="project-lang">Java &mdash; ICS3U</div>
       <div class="project-title">DollaSense</div>
@@ -414,7 +429,7 @@
         <span class="tag">Java</span><span class="tag">JFreeChart</span><span class="tag">Finance</span>
       </div>
     </a>
-    <a href="https://github.com/Rayne0010/hangman" target="_blank" class="project-card reveal d1">
+    <a href="https://github.com/Rayne0010/hangman" target="_blank" rel="noopener noreferrer" class="project-card reveal d1">
       <div class="project-glow"></div>
       <div class="project-lang">Java &mdash; ICS3U</div>
       <div class="project-title">Hangman</div>
@@ -423,7 +438,7 @@
         <span class="tag">Java</span><span class="tag">CLI</span><span class="tag">Game</span>
       </div>
     </a>
-    <a href="https://github.com/Rayne0010/PortfolioWebsite" target="_blank" class="project-card reveal d2">
+    <a href="https://github.com/Rayne0010/PortfolioWebsite" target="_blank" rel="noopener noreferrer" class="project-card reveal d2">
       <div class="project-glow"></div>
       <div class="project-lang">HTML / CSS / JS &mdash; Personal</div>
       <div class="project-title">This Portfolio</div>
@@ -547,8 +562,8 @@
   <p class="contact-sub reveal d2">Open to collaborations, projects, and conversations.<span class="blink">_</span></p>
   <div class="contact-links reveal d3">
     <a href="#" id="emailBtn" class="btn-primary">Send Email</a>
-    <a href="https://www.linkedin.com/in/julian-deonarine-56851a310/" target="_blank" class="btn-outline">LinkedIn</a>
-    <a href="https://github.com/Rayne0010" target="_blank" class="btn-outline">GitHub</a>
+    <a href="https://www.linkedin.com/in/julian-deonarine-56851a310/" target="_blank" rel="noopener noreferrer" class="btn-outline">LinkedIn</a>
+    <a href="https://github.com/Rayne0010" target="_blank" rel="noopener noreferrer" class="btn-outline">GitHub</a>
   </div>
 </section>
 
@@ -863,6 +878,13 @@
       /* Small delay before drawing starts so the page can settle */
       setTimeout(function() { requestAnimationFrame(frame); }, DELAY);
     }
+
+    /* Replay signature animation on bfcache restore
+       (when user navigates back and browser restores the page from cache).
+       event.persisted is true in that case — without this the canvas is blank. */
+    window.addEventListener('pageshow', function(e) {
+      if (e.persisted) initSig();
+    });
 
     /* Run after DOM is ready */
     if (document.readyState === 'loading') {
