@@ -288,18 +288,52 @@
     *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
     html{scroll-behavior:auto}
     .hero-tag,.hero-name,.hero-desc,.hero-cta,.hero-scroll,.status-bar{opacity:1;transform:none}
-  } ───────────────────────────────────────── */
-  /* Reverts hover-only effects on touchscreens at any viewport width
-     (e.g. iPad in landscape). Also restores proper cursor values since
-     the custom cursor is hidden. */
+  }
+
+  /* ── Touch / No-Hover Devices ───────────────────────────────────────── */
+  /* Phones and tablets don't have a hover state — tapping an element fires
+     mouseenter and mouseleave in rapid succession, which means hover styles
+     flash on and immediately stick or jitter. We kill every hover effect here.
+     @media(hover:none) catches all touch-primary devices regardless of width
+     (phone, tablet, iPad in landscape, etc.). */
   @media(hover:none){
+    /* Restore native cursor since the custom JS cursor is hidden on touch */
     body{cursor:auto}
     a,button,.achievement-item,.skill-item{cursor:pointer}
-    .nav-links a:hover{transform:none}
+
+    /* Nav */
+    .nav-links a:hover{color:var(--text-muted);transform:none}
+    .nav-links a:hover::before{opacity:0}
     .hamburger:hover{transform:none;opacity:1}
     .hamburger:hover span{background:var(--text-muted)}
-    #sigCanvas:hover{filter:drop-shadow(0 0 6px rgba(120,40,200,0))}
-    .nav-links a:hover::before{opacity:0}
+    #sigCanvas:hover{filter:drop-shadow(0 0 6px rgba(224,8,156,0))}
+    #navLogo:hover{transform:none;opacity:1}
+
+    /* Project cards — no lift, no glow, no arrow, no title colour shift */
+    .project-card:hover{transform:none;box-shadow:none;border-color:var(--border)}
+    .project-card:hover::before{opacity:0}
+    .project-card:hover::after{opacity:0;transform:translateX(-6px)}
+    .project-card:hover .project-glow{opacity:0}
+    .project-card:hover .project-title{color:var(--text)}
+    .project-card:hover .tag{border-color:var(--border);color:var(--text-dim)}
+    .project-card.featured:hover{border-color:var(--magenta-dim);box-shadow:none}
+    .project-card.featured:hover .project-title{color:var(--text)}
+
+    /* Achievement rows — no slide, no accent bar */
+    .achievement-item:hover{transform:none;border-color:var(--border)}
+    .achievement-item:hover::after{transform:scaleY(0)}
+
+    /* Skill tiles */
+    .skill-item:hover{border-color:var(--border)}
+
+    /* Buttons */
+    .btn-primary:hover{transform:none;box-shadow:none}
+    .btn-primary:hover::after{transform:translateX(-100%)}
+    .btn-outline:hover{border-color:var(--border);color:var(--text-muted)}
+
+    /* Mobile menu links */
+    .mobile-menu a:hover{color:var(--text-muted)}
+    .mobile-menu a:hover::before{opacity:0}
   }
 </style>
 </head>
