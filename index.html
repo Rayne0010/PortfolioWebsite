@@ -26,6 +26,20 @@
   nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:20px 48px;background:linear-gradient(to bottom,rgba(8,8,16,.95) 60%,transparent);backdrop-filter:blur(6px);-webkit-mask-image:linear-gradient(to bottom,black 55%,transparent 100%);mask-image:linear-gradient(to bottom,black 55%,transparent 100%)}
   .nav-logo{font-size:13px;font-weight:700;color:var(--magenta);letter-spacing:.1em;text-transform:uppercase}
   .nav-logo span{color:var(--text-muted);font-weight:400}
+  .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;z-index:200}
+  .hamburger span{display:block;width:22px;height:2px;background:var(--text-muted);transition:transform .3s,opacity .3s,background .3s}
+  .hamburger:hover span{background:var(--magenta)}
+  .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .hamburger.open span:nth-child(2){opacity:0}
+  .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+  .mobile-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(8,8,16,.97);z-index:150;flex-direction:column;justify-content:center;align-items:center;gap:36px;opacity:0;transition:opacity .3s}
+  .mobile-menu.open{opacity:1}
+  .mobile-menu a{color:var(--text-muted);text-decoration:none;font-size:13px;letter-spacing:.2em;text-transform:uppercase;transition:color .2s;position:relative}
+  .mobile-menu a::before{content:'// ';color:var(--magenta-dim);opacity:0;transition:opacity .2s}
+  .mobile-menu a:hover{color:var(--text)}
+  .mobile-menu a:hover::before{opacity:1}
+
   #sigCanvas{display:block;filter:drop-shadow(0 0 6px rgba(224,8,156,0));transition:filter .4s}
   #sigCanvas:hover{filter:drop-shadow(0 0 8px rgba(224,8,156,.6))}
   .nav-links{display:flex;gap:32px;list-style:none}
@@ -136,6 +150,8 @@
     /* Nav */
     nav{padding:16px 20px}
     .nav-links{display:none}
+    .hamburger{display:flex}
+    .mobile-menu{display:flex}
 
     /* Hide custom cursor on touch */
     .cursor,.cursor-ring{display:none}
@@ -203,7 +219,18 @@
     <li><a href="#experience">Experience</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#projects" class="mobile-link">Projects</a>
+  <a href="#achievements" class="mobile-link">Awards</a>
+  <a href="#skills" class="mobile-link">Skills</a>
+  <a href="#experience" class="mobile-link">Experience</a>
+  <a href="#contact" class="mobile-link">Contact</a>
+</div>
 
 <section class="hero">
   <div class="hero-glow"></div>
@@ -415,6 +442,24 @@
   // Scroll reveal
   var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:.1});
   document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+
+  // Hamburger menu
+  var hbtn=document.getElementById('hamburger');
+  var mmenu=document.getElementById('mobileMenu');
+  if(hbtn&&mmenu){
+    hbtn.addEventListener('click',function(){
+      var open=hbtn.classList.toggle('open');
+      mmenu.classList.toggle('open',open);
+      document.body.style.overflow=open?'hidden':'';
+    });
+    mmenu.querySelectorAll('.mobile-link').forEach(function(a){
+      a.addEventListener('click',function(){
+        hbtn.classList.remove('open');
+        mmenu.classList.remove('open');
+        document.body.style.overflow='';
+      });
+    });
+  }
 
   // Skill bars
   var so=new IntersectionObserver(function(entries){entries.forEach(function(e){
