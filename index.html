@@ -432,7 +432,7 @@
 <script>
 /* ── Animated JD Signature — v3: dark purple + cursive exit flourish ── */
 (function(){
-  var CW=120, CH=68;
+  var CW=148, CH=68;
 
   /*
    * Redesign notes:
@@ -485,15 +485,13 @@
         return 3.4 + Math.max(0, 1 - mid*mid) * 0.9;
       }},
 
-    /* 7. EXIT FLOURISH — pen doesn't lift; flows out of D's closing point
-          in a smooth cursive continuation: dips slightly right then arcs
-          gracefully upward and rightward, thinning to a fine point */
-    { cmds: [['M',61,54],['C',70,60,85,62,96,58],['C',106,54,114,47,118,40]],
+    /* 7. EXIT FLOURISH — pen flows directly out of D's close, drifts
+          right past the belly, dips gently then sweeps up in a long
+          cursive tail that thins to a fine vanishing point */
+    { cmds: [['M',61,54],['C',72,61,90,63,104,59],['C',118,55,130,48,138,38],['C',142,32,145,26,144,20]],
       w: function(t){
-        // starts at medium (continuing from D close), builds a touch, then
-        // tapers to near-nothing as the pen lifts off the page
-        if(t < 0.12) return 2.2 + t/0.12*0.6;
-        return 2.8 * Math.pow(1 - t, 1.6) + 0.3;
+        if(t < 0.10) return 2.2 + t/0.10*0.5;
+        return 2.7 * Math.pow(1 - t, 1.4) + 0.2;
       }}
   ];
 
