@@ -430,81 +430,93 @@
 </script>
 
 <script>
-/* ── Animated JD Signature — calligraphic variable-width redesign ── */
+/* ── Animated JD Signature — v3: dark purple + cursive exit flourish ── */
 (function(){
-  var CW=114, CH=62;
+  var CW=120, CH=68;
 
   /*
-   * Strokes: each has bezier path cmds + width profile fn(t)->px
-   * Calligraphy rule: downstrokes thick, upstrokes/entries thin.
-   * ~15deg italic lean throughout. Canvas 114x62.
+   * Redesign notes:
+   *  - Colour: deep purple #9333ea
+   *  - Italic lean ~15deg throughout
+   *  - No flat underline; instead the D closes and the pen flows directly
+   *    into a long cursive exit tail that sweeps right then curves up — like
+   *    the natural "pen-off-paper" trailing flourish of a real signature
+   *  - Variable width: thick downstrokes, thin upstrokes/exits
    */
-  var strokes=[
-    /* J entry flick: thin hairline swash */
-    {cmds:[['M',52,7],['C',50,8,47,10,45,13]],
-     w:function(t){return 0.8+t*1.6;}},
 
-    /* J main downstroke: thick italic stem */
-    {cmds:[['M',45,13],['C',46,24,47,36,45,48]],
-     w:function(t){
-       if(t<0.18)return 1.5+t/0.18*3.2;
-       if(t>0.82)return 4.7-(t-0.82)/0.18*2.2;
-       return 4.7;
-     }},
+  var PURPLE = '#9333ea';
 
-    /* J bottom hook: sweeps left and curls back up */
-    {cmds:[['M',45,48],['C',43,54,34,57,26,52],['C',20,47,22,40,27,38]],
-     w:function(t){return 2.8-t*1.8;}},
+  var strokes = [
 
-    /* Ligature J->D: thin upstroke */
-    {cmds:[['M',45,26],['C',52,19,57,14,63,12]],
-     w:function(t){return 1.4;}},
+    /* 1. J — entry hairline flick from upper right */
+    { cmds: [['M',52,8],['C',50,9,47,11,45,14]],
+      w: function(t){ return 0.7 + t*1.5; } },
 
-    /* D main downstroke: thick italic stem */
-    {cmds:[['M',63,12],['C',64,25,63,40,60,52]],
-     w:function(t){
-       if(t<0.18)return 1.5+t/0.18*3.2;
-       if(t>0.82)return 4.7-(t-0.82)/0.18*2.2;
-       return 4.7;
-     }},
+    /* 2. J — main italic downstroke */
+    { cmds: [['M',45,14],['C',46,25,47,37,45,50]],
+      w: function(t){
+        if(t < 0.18) return 1.4 + t/0.18*3.4;
+        if(t > 0.80) return 4.8 - (t-0.80)/0.20*2.6;
+        return 4.8;
+      }},
 
-    /* D belly: large generous sweep */
-    {cmds:[['M',63,12],['C',74,6,98,14,106,30],['C',111,42,103,54,85,58],['C',73,61,63,58,60,52]],
-     w:function(t){
-       if(t<0.15)return 1.2+t/0.15*1.8;
-       if(t>0.78)return 3.2-(t-0.78)/0.22*2.2;
-       var mid=Math.abs(t-0.45)/0.35;
-       return 3.2+Math.max(0,1-mid*mid)*0.8;
-     }},
+    /* 3. J — bottom hook: sweeps left, curls back up */
+    { cmds: [['M',45,50],['C',43,57,33,60,24,54],['C',18,49,21,41,27,39]],
+      w: function(t){ return 3.0 - t*2.2; } },
 
-    /* Underline flourish: long elegant S-curve tail */
-    {cmds:[['M',7,60],['C',36,54,74,64,109,57]],
-     w:function(t){
-       if(t<0.08)return 0.4+t/0.08*2.0;
-       if(t>0.88)return 2.4-(t-0.88)/0.12*2.0;
-       return 2.4;
-     }}
+    /* 4. Ligature J→D: thin upstroke */
+    { cmds: [['M',45,27],['C',52,20,58,15,64,13]],
+      w: function(t){ return 1.3; } },
+
+    /* 5. D — main italic downstroke */
+    { cmds: [['M',64,13],['C',65,26,64,41,61,54]],
+      w: function(t){
+        if(t < 0.18) return 1.4 + t/0.18*3.4;
+        if(t > 0.80) return 4.8 - (t-0.80)/0.20*2.6;
+        return 4.8;
+      }},
+
+    /* 6. D — belly: generous rightward sweep, closes back to stem bottom */
+    { cmds: [['M',64,13],['C',76,7,102,15,110,32],['C',115,44,106,57,87,61],['C',75,64,63,60,61,54]],
+      w: function(t){
+        if(t < 0.14) return 1.1 + t/0.14*1.9;
+        if(t > 0.76) return 3.4 - (t-0.76)/0.24*2.6;
+        var mid = Math.abs(t - 0.44)/0.34;
+        return 3.4 + Math.max(0, 1 - mid*mid) * 0.9;
+      }},
+
+    /* 7. EXIT FLOURISH — pen doesn't lift; flows out of D's closing point
+          in a smooth cursive continuation: dips slightly right then arcs
+          gracefully upward and rightward, thinning to a fine point */
+    { cmds: [['M',61,54],['C',70,60,85,62,96,58],['C',106,54,114,47,118,40]],
+      w: function(t){
+        // starts at medium (continuing from D close), builds a touch, then
+        // tapers to near-nothing as the pen lifts off the page
+        if(t < 0.12) return 2.2 + t/0.12*0.6;
+        return 2.8 * Math.pow(1 - t, 1.6) + 0.3;
+      }}
   ];
 
-  function sampleCmds(cmds,n){
-    var pts=[],cx=0,cy=0;
+  /* ── bezier sampler ── */
+  function sampleCmds(cmds, n){
+    var pts=[], cx=0, cy=0;
     for(var i=0;i<cmds.length;i++){
       var c=cmds[i];
-      if(c[0]==='M'){cx=c[1];cy=c[2];pts.push([cx,cy]);}
+      if(c[0]==='M'){ cx=c[1]; cy=c[2]; pts.push([cx,cy]); }
       else if(c[0]==='L'){
-        for(var j=1;j<=n;j++){var t=j/n;pts.push([cx+(c[1]-cx)*t,cy+(c[2]-cy)*t]);}
-        cx=c[1];cy=c[2];
+        for(var j=1;j<=n;j++){ var t=j/n; pts.push([cx+(c[1]-cx)*t, cy+(c[2]-cy)*t]); }
+        cx=c[1]; cy=c[2];
       }else if(c[0]==='Q'){
         var cpx=c[1],cpy=c[2],tx=c[3],ty=c[4];
-        for(var j=1;j<=n;j++){var t=j/n,m=1-t;
-          pts.push([m*m*cx+2*m*t*cpx+t*t*tx,m*m*cy+2*m*t*cpy+t*t*ty]);}
-        cx=tx;cy=ty;
+        for(var j=1;j<=n;j++){ var t=j/n,m=1-t;
+          pts.push([m*m*cx+2*m*t*cpx+t*t*tx, m*m*cy+2*m*t*cpy+t*t*ty]); }
+        cx=tx; cy=ty;
       }else if(c[0]==='C'){
         var p1x=c[1],p1y=c[2],p2x=c[3],p2y=c[4],tx=c[5],ty=c[6];
-        for(var j=1;j<=n;j++){var t=j/n,m=1-t;
+        for(var j=1;j<=n;j++){ var t=j/n,m=1-t;
           pts.push([m*m*m*cx+3*m*m*t*p1x+3*m*t*t*p2x+t*t*t*tx,
-                    m*m*m*cy+3*m*m*t*p1y+3*m*t*t*p2y+t*t*t*ty]);}
-        cx=tx;cy=ty;
+                    m*m*m*cy+3*m*m*t*p1y+3*m*t*t*p2y+t*t*t*ty]); }
+        cx=tx; cy=ty;
       }
     }
     return pts;
@@ -513,7 +525,7 @@
   function cumArcs(pts){
     var a=[0];
     for(var i=1;i<pts.length;i++){
-      var dx=pts[i][0]-pts[i-1][0],dy=pts[i][1]-pts[i-1][1];
+      var dx=pts[i][0]-pts[i-1][0], dy=pts[i][1]-pts[i-1][1];
       a.push(a[i-1]+Math.sqrt(dx*dx+dy*dy));
     }
     return a;
@@ -521,39 +533,39 @@
 
   var N=100;
   var proc=strokes.map(function(s){
-    var pts=sampleCmds(s.cmds,N),a=cumArcs(pts);
-    return{pts:pts,arcs:a,total:a[a.length-1],w:s.w};
+    var pts=sampleCmds(s.cmds,N), a=cumArcs(pts);
+    return { pts:pts, arcs:a, total:a[a.length-1], w:s.w };
   });
-  var grand=proc.reduce(function(s,p){return s+p.total;},0);
+  var grand=proc.reduce(function(s,p){ return s+p.total; },0);
 
   function initSig(){
     var cv=document.getElementById('sigCanvas');
-    if(!cv)return;
+    if(!cv) return;
     var dpr=window.devicePixelRatio||1;
-    cv.width=CW*dpr;cv.height=CH*dpr;
-    cv.style.width=CW+'px';cv.style.height=CH+'px';
+    cv.width=CW*dpr; cv.height=CH*dpr;
+    cv.style.width=CW+'px'; cv.style.height=CH+'px';
     var ctx=cv.getContext('2d');
     ctx.scale(dpr,dpr);
-    ctx.strokeStyle='#e0089c';
+    ctx.strokeStyle=PURPLE;
     ctx.lineCap='round';
     ctx.lineJoin='round';
 
-    var DUR=1700,DELAY=450,t0=null;
-    function ease(t){return t<.5?2*t*t:-1+(4-2*t)*t;}
+    var DUR=1800, DELAY=450, t0=null;
+    function ease(t){ return t<.5 ? 2*t*t : -1+(4-2*t)*t; }
 
     function frame(ts){
-      if(!t0)t0=ts;
+      if(!t0) t0=ts;
       var raw=Math.min((ts-t0)/DUR,1);
       var head=ease(raw)*grand;
       ctx.clearRect(0,0,CW,CH);
       var rem=head;
       for(var si=0;si<proc.length;si++){
-        if(rem<=0)break;
+        if(rem<=0) break;
         var s=proc[si];
         var draw=Math.min(rem,s.total);
         rem-=s.total;
         for(var i=1;i<s.pts.length;i++){
-          if(s.arcs[i]>draw)break;
+          if(s.arcs[i]>draw) break;
           ctx.lineWidth=s.w(s.arcs[i]/s.total);
           ctx.beginPath();
           ctx.moveTo(s.pts[i-1][0],s.pts[i-1][1]);
@@ -561,10 +573,10 @@
           ctx.stroke();
         }
       }
-      if(raw<1)requestAnimationFrame(frame);
+      if(raw<1) requestAnimationFrame(frame);
     }
 
-    setTimeout(function(){requestAnimationFrame(frame);},DELAY);
+    setTimeout(function(){ requestAnimationFrame(frame); }, DELAY);
   }
 
   if(document.readyState==='loading'){
