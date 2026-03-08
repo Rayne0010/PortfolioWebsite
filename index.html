@@ -203,6 +203,15 @@
     .project-tags{gap:6px}
     .achievement-item{padding:16px}
   }
+
+  /* Remove hover effects on touch devices */
+  @media(hover:none){
+    .nav-links a:hover{transform:none}
+    .hamburger:hover{transform:none;opacity:1}
+    .hamburger:hover span{background:var(--text-muted)}
+    #sigCanvas:hover{filter:drop-shadow(0 0 6px rgba(120,40,200,0))}
+    .nav-links a:hover::before{opacity:0}
+  }
 </style>
 </head>
 <body>
@@ -458,6 +467,13 @@
         mmenu.classList.remove('open');
         document.body.style.overflow='';
       });
+    });
+    mmenu.addEventListener('click',function(e){
+      if(e.target===mmenu){
+        hbtn.classList.remove('open');
+        mmenu.classList.remove('open');
+        document.body.style.overflow='';
+      }
     });
   }
 
