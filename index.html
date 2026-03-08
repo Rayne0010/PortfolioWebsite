@@ -430,117 +430,136 @@
 </script>
 
 <script>
-/* ── Animated JD Signature ── */
+/* ── Animated JD Signature — calligraphic variable-width redesign ── */
 (function(){
-  var CW=88, CH=52;
+  var CW=114, CH=62;
 
-  /* Each entry is one continuous pen stroke: array of canvas commands */
-  /* Coordinates tuned for an 88x52 canvas */
-  var SEGS=[
-    /* J — entry curl (small swoop from right curling left) */
-    [['M',28,10],['C',26,5,18,4,16,9]],
-    /* J — vertical stem + bottom hook */
-    [['M',22,8],['L',22,32],['C',22,44,12,46,8,38]],
-    /* ligature — small connecting stroke J→D */
-    [['M',22,18],['Q',28,13,34,12]],
-    /* D — stem down, then belly sweeps right and closes back at top */
-    [['M',34,10],['L',34,42],['C',50,48,74,38,74,26],['C',74,12,58,6,44,6],['Q',38,6,34,10]],
-    /* underline flourish */
-    [['M',6,50],['C',28,47,58,47,82,50]]
+  /*
+   * Strokes: each has bezier path cmds + width profile fn(t)->px
+   * Calligraphy rule: downstrokes thick, upstrokes/entries thin.
+   * ~15deg italic lean throughout. Canvas 114x62.
+   */
+  var strokes=[
+    /* J entry flick: thin hairline swash */
+    {cmds:[['M',52,7],['C',50,8,47,10,45,13]],
+     w:function(t){return 0.8+t*1.6;}},
+
+    /* J main downstroke: thick italic stem */
+    {cmds:[['M',45,13],['C',46,24,47,36,45,48]],
+     w:function(t){
+       if(t<0.18)return 1.5+t/0.18*3.2;
+       if(t>0.82)return 4.7-(t-0.82)/0.18*2.2;
+       return 4.7;
+     }},
+
+    /* J bottom hook: sweeps left and curls back up */
+    {cmds:[['M',45,48],['C',43,54,34,57,26,52],['C',20,47,22,40,27,38]],
+     w:function(t){return 2.8-t*1.8;}},
+
+    /* Ligature J->D: thin upstroke */
+    {cmds:[['M',45,26],['C',52,19,57,14,63,12]],
+     w:function(t){return 1.4;}},
+
+    /* D main downstroke: thick italic stem */
+    {cmds:[['M',63,12],['C',64,25,63,40,60,52]],
+     w:function(t){
+       if(t<0.18)return 1.5+t/0.18*3.2;
+       if(t>0.82)return 4.7-(t-0.82)/0.18*2.2;
+       return 4.7;
+     }},
+
+    /* D belly: large generous sweep */
+    {cmds:[['M',63,12],['C',74,6,98,14,106,30],['C',111,42,103,54,85,58],['C',73,61,63,58,60,52]],
+     w:function(t){
+       if(t<0.15)return 1.2+t/0.15*1.8;
+       if(t>0.78)return 3.2-(t-0.78)/0.22*2.2;
+       var mid=Math.abs(t-0.45)/0.35;
+       return 3.2+Math.max(0,1-mid*mid)*0.8;
+     }},
+
+    /* Underline flourish: long elegant S-curve tail */
+    {cmds:[['M',7,60],['C',36,54,74,64,109,57]],
+     w:function(t){
+       if(t<0.08)return 0.4+t/0.08*2.0;
+       if(t>0.88)return 2.4-(t-0.88)/0.12*2.0;
+       return 2.4;
+     }}
   ];
 
-  /* Sample a stroke into N interpolated points per bezier segment */
-  function sampleSeg(cmds,n){
+  function sampleCmds(cmds,n){
     var pts=[],cx=0,cy=0;
     for(var i=0;i<cmds.length;i++){
       var c=cmds[i];
-      if(c[0]==='M'){cx=c[1];cy=c[2];pts.push({x:cx,y:cy});}
+      if(c[0]==='M'){cx=c[1];cy=c[2];pts.push([cx,cy]);}
       else if(c[0]==='L'){
-        var tx=c[1],ty=c[2];
-        for(var j=1;j<=n;j++){var t=j/n;pts.push({x:cx+(tx-cx)*t,y:cy+(ty-cy)*t});}
-        cx=tx;cy=ty;
+        for(var j=1;j<=n;j++){var t=j/n;pts.push([cx+(c[1]-cx)*t,cy+(c[2]-cy)*t]);}
+        cx=c[1];cy=c[2];
       }else if(c[0]==='Q'){
         var cpx=c[1],cpy=c[2],tx=c[3],ty=c[4];
-        for(var j=1;j<=n;j++){var t=j/n,mt=1-t;pts.push({x:mt*mt*cx+2*mt*t*cpx+t*t*tx,y:mt*mt*cy+2*mt*t*cpy+t*t*ty});}
+        for(var j=1;j<=n;j++){var t=j/n,m=1-t;
+          pts.push([m*m*cx+2*m*t*cpx+t*t*tx,m*m*cy+2*m*t*cpy+t*t*ty]);}
         cx=tx;cy=ty;
       }else if(c[0]==='C'){
-        var cp1x=c[1],cp1y=c[2],cp2x=c[3],cp2y=c[4],tx=c[5],ty=c[6];
-        for(var j=1;j<=n;j++){var t=j/n,mt=1-t;pts.push({
-          x:mt*mt*mt*cx+3*mt*mt*t*cp1x+3*mt*t*t*cp2x+t*t*t*tx,
-          y:mt*mt*mt*cy+3*mt*mt*t*cp1y+3*mt*t*t*cp2y+t*t*t*ty
-        });}
+        var p1x=c[1],p1y=c[2],p2x=c[3],p2y=c[4],tx=c[5],ty=c[6];
+        for(var j=1;j<=n;j++){var t=j/n,m=1-t;
+          pts.push([m*m*m*cx+3*m*m*t*p1x+3*m*t*t*p2x+t*t*t*tx,
+                    m*m*m*cy+3*m*m*t*p1y+3*m*t*t*p2y+t*t*t*ty]);}
         cx=tx;cy=ty;
       }
     }
     return pts;
   }
 
-  /* Compute cumulative arc-lengths for a sampled point array */
-  function cumLen(pts){
-    var lens=[0];
+  function cumArcs(pts){
+    var a=[0];
     for(var i=1;i<pts.length;i++){
-      var dx=pts[i].x-pts[i-1].x,dy=pts[i].y-pts[i-1].y;
-      lens.push(lens[i-1]+Math.sqrt(dx*dx+dy*dy));
+      var dx=pts[i][0]-pts[i-1][0],dy=pts[i][1]-pts[i-1][1];
+      a.push(a[i-1]+Math.sqrt(dx*dx+dy*dy));
     }
-    return lens;
+    return a;
   }
 
-  /* Draw a stroke up to a given arc-length target */
-  function drawUpTo(ctx,pts,lens,target){
-    if(pts.length<2||target<=0)return;
-    ctx.beginPath();
-    ctx.moveTo(pts[0].x,pts[0].y);
-    for(var i=1;i<pts.length;i++){
-      if(lens[i]>=target){
-        var prev=lens[i-1],span=lens[i]-prev;
-        if(span>0){
-          var frac=(target-prev)/span;
-          ctx.lineTo(pts[i-1].x+(pts[i].x-pts[i-1].x)*frac,pts[i-1].y+(pts[i].y-pts[i-1].y)*frac);
-        }
-        break;
-      }
-      ctx.lineTo(pts[i].x,pts[i].y);
-    }
-    ctx.stroke();
-  }
+  var N=100;
+  var proc=strokes.map(function(s){
+    var pts=sampleCmds(s.cmds,N),a=cumArcs(pts);
+    return{pts:pts,arcs:a,total:a[a.length-1],w:s.w};
+  });
+  var grand=proc.reduce(function(s,p){return s+p.total;},0);
 
   function initSig(){
-    var canvas=document.getElementById('sigCanvas');
-    if(!canvas)return;
+    var cv=document.getElementById('sigCanvas');
+    if(!cv)return;
     var dpr=window.devicePixelRatio||1;
-    canvas.width=CW*dpr; canvas.height=CH*dpr;
-    canvas.style.width=CW+'px'; canvas.style.height=CH+'px';
-    var ctx=canvas.getContext('2d');
+    cv.width=CW*dpr;cv.height=CH*dpr;
+    cv.style.width=CW+'px';cv.style.height=CH+'px';
+    var ctx=cv.getContext('2d');
     ctx.scale(dpr,dpr);
     ctx.strokeStyle='#e0089c';
-    ctx.lineWidth=2.2;
     ctx.lineCap='round';
     ctx.lineJoin='round';
 
-    /* Pre-sample all segments */
-    var N=60;
-    var sampled=SEGS.map(function(cmds){
-      var pts=sampleSeg(cmds,N);
-      return{pts:pts,lens:cumLen(pts)};
-    });
-    var segLens=sampled.map(function(s){return s.lens[s.lens.length-1];});
-    var total=segLens.reduce(function(a,b){return a+b;},0);
-
-    var DURATION=1500, DELAY=500, start=null;
-
-    /* Smooth ease-in-out */
+    var DUR=1700,DELAY=450,t0=null;
     function ease(t){return t<.5?2*t*t:-1+(4-2*t)*t;}
 
     function frame(ts){
-      if(!start)start=ts;
-      var raw=Math.min((ts-start)/DURATION,1);
-      var prog=ease(raw)*total;
+      if(!t0)t0=ts;
+      var raw=Math.min((ts-t0)/DUR,1);
+      var head=ease(raw)*grand;
       ctx.clearRect(0,0,CW,CH);
-      var rem=prog;
-      for(var i=0;i<sampled.length;i++){
+      var rem=head;
+      for(var si=0;si<proc.length;si++){
         if(rem<=0)break;
-        drawUpTo(ctx,sampled[i].pts,sampled[i].lens,Math.min(rem,segLens[i]));
-        rem-=segLens[i];
+        var s=proc[si];
+        var draw=Math.min(rem,s.total);
+        rem-=s.total;
+        for(var i=1;i<s.pts.length;i++){
+          if(s.arcs[i]>draw)break;
+          ctx.lineWidth=s.w(s.arcs[i]/s.total);
+          ctx.beginPath();
+          ctx.moveTo(s.pts[i-1][0],s.pts[i-1][1]);
+          ctx.lineTo(s.pts[i][0],s.pts[i][1]);
+          ctx.stroke();
+        }
       }
       if(raw<1)requestAnimationFrame(frame);
     }
