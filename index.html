@@ -26,6 +26,8 @@
   nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:20px 48px;background:linear-gradient(to bottom,rgba(8,8,16,.95),transparent);backdrop-filter:blur(4px)}
   .nav-logo{font-size:13px;font-weight:700;color:var(--magenta);letter-spacing:.1em;text-transform:uppercase}
   .nav-logo span{color:var(--text-muted);font-weight:400}
+  #sigCanvas{display:block;filter:drop-shadow(0 0 6px rgba(224,8,156,0));transition:filter .4s}
+  #sigCanvas:hover{filter:drop-shadow(0 0 8px rgba(224,8,156,.6))}
   .nav-links{display:flex;gap:32px;list-style:none}
   .nav-links a{color:var(--text-muted);text-decoration:none;font-size:11px;letter-spacing:.15em;text-transform:uppercase;transition:color .2s;position:relative;cursor:none}
   .nav-links a::before{content:'// ';color:var(--magenta-dim);opacity:0;transition:opacity .2s}
@@ -131,42 +133,59 @@
   .d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
 
   @media(max-width:768px){
-    body{cursor:auto}
-    .cursor,.cursor-ring{display:none}
-
+    /* Nav */
     nav{padding:16px 20px}
     .nav-links{display:none}
 
-    .hero{padding:80px 20px 100px;min-height:100svh;justify-content:center}
-    .hero-name{font-size:clamp(44px,13vw,80px)}
-    .hero-desc{font-size:12px;max-width:100%}
-    .hero-cta{flex-direction:column;gap:10px}
-    .btn-primary,.btn-outline{text-align:center;padding:14px 20px}
-    .hero-scroll{left:20px;bottom:20px}
+    /* Hide custom cursor on touch */
+    .cursor,.cursor-ring{display:none}
+    body{cursor:auto}
+    a,button{cursor:pointer}
+
+    /* Hero */
+    .hero{padding:0 20px;min-height:100svh}
     .hero-glow{width:300px;height:300px;left:50%;top:40%}
+    .hero-tag{font-size:10px;margin-bottom:16px}
+    .hero-desc{font-size:12px;max-width:100%;margin-bottom:36px}
+    .hero-cta{flex-direction:column;gap:12px;align-items:flex-start}
+    .btn-primary,.btn-outline{width:100%;text-align:center;padding:14px 24px}
+    .hero-scroll{left:20px;bottom:24px}
     .status-bar{display:none}
 
+    /* Sections */
     section{padding:72px 20px}
-    .contact-section{padding:80px 20px}
     .section-header{margin-bottom:40px}
 
+    /* Projects */
     .projects-grid{grid-template-columns:1fr}
     .project-card{padding:24px}
 
-    .skills-grid{grid-template-columns:repeat(2,1fr)}
-
-    .achievement-item{grid-template-columns:1fr;gap:8px;padding:20px 16px}
+    /* Achievements */
+    .achievement-item{grid-template-columns:1fr;gap:8px;padding:20px 20px}
     .achievement-badge{align-self:flex-start}
 
+    /* Skills */
+    .skills-grid{grid-template-columns:repeat(2,1fr)}
+
+    /* Experience */
     .experience-timeline{padding-left:24px}
     .exp-item::before{left:-28px}
+    .exp-desc{max-width:100%}
 
-    footer{flex-direction:column;gap:6px;padding:20px;text-align:center}
+    /* Contact */
+    .contact-section{padding:80px 20px}
+    .contact-links{flex-direction:column;align-items:center}
+    .contact-links .btn-primary,.contact-links .btn-outline{width:100%;max-width:280px;text-align:center}
+
+    /* Footer */
+    footer{flex-direction:column;gap:8px;padding:20px;text-align:center}
   }
+
   @media(max-width:480px){
     .skills-grid{grid-template-columns:1fr}
-    .hero-name{font-size:clamp(40px,14vw,72px)}
-    .contact-heading{font-size:clamp(32px,10vw,60px)}
+    .hero-name{letter-spacing:-.04em}
+    .project-tags{gap:6px}
+    .achievement-item{padding:16px}
   }
 </style>
 </head>
@@ -176,7 +195,7 @@
 <div class="cursor-ring" id="cring"></div>
 
 <nav>
-  <div class="nav-logo">julian<span>.deonarine</span></div>
+  <canvas class="nav-logo" id="sigCanvas" aria-label="JD signature"></canvas>
   <ul class="nav-links">
     <li><a href="#projects">Projects</a></li>
     <li><a href="#achievements">Awards</a></li>
@@ -210,7 +229,7 @@
   </div>
   <div class="status-bar">
     <div class="status-line">// <span>status</span>: grade 12 student</div>
-    <div class="status-line">// <span>location</span>: toronto, CA</div>
+    <div class="status-line">// <span>location</span>: Toronto, CA</div>
     <div class="status-line">// <span>stack</span>: JS, hardware, networks</div>
     <div class="status-line">// <span>cert</span>: NL, swim instructor, first aid</div>
   </div>
@@ -379,7 +398,7 @@
 
 <footer>
   <span>// julian deonarine &copy; 2025</span>
-  <span>built with intention &mdash; toronto, CA</span>
+  <span>built with intention &mdash; Toronto, CA</span>
 </footer>
 
 <script>
@@ -407,6 +426,133 @@
     }
   });},{threshold:.4});
   document.querySelectorAll('.skill-item').forEach(function(el){so.observe(el);});
+})();
+</script>
+
+<script>
+/* ── Animated JD Signature ── */
+(function(){
+  var CW=88, CH=52;
+
+  /* Each entry is one continuous pen stroke: array of canvas commands */
+  /* Coordinates tuned for an 88x52 canvas */
+  var SEGS=[
+    /* J — entry curl (small swoop from right curling left) */
+    [['M',28,10],['C',26,5,18,4,16,9]],
+    /* J — vertical stem + bottom hook */
+    [['M',22,8],['L',22,32],['C',22,44,12,46,8,38]],
+    /* ligature — small connecting stroke J→D */
+    [['M',22,18],['Q',28,13,34,12]],
+    /* D — stem down, then belly sweeps right and closes back at top */
+    [['M',34,10],['L',34,42],['C',50,48,74,38,74,26],['C',74,12,58,6,44,6],['Q',38,6,34,10]],
+    /* underline flourish */
+    [['M',6,50],['C',28,47,58,47,82,50]]
+  ];
+
+  /* Sample a stroke into N interpolated points per bezier segment */
+  function sampleSeg(cmds,n){
+    var pts=[],cx=0,cy=0;
+    for(var i=0;i<cmds.length;i++){
+      var c=cmds[i];
+      if(c[0]==='M'){cx=c[1];cy=c[2];pts.push({x:cx,y:cy});}
+      else if(c[0]==='L'){
+        var tx=c[1],ty=c[2];
+        for(var j=1;j<=n;j++){var t=j/n;pts.push({x:cx+(tx-cx)*t,y:cy+(ty-cy)*t});}
+        cx=tx;cy=ty;
+      }else if(c[0]==='Q'){
+        var cpx=c[1],cpy=c[2],tx=c[3],ty=c[4];
+        for(var j=1;j<=n;j++){var t=j/n,mt=1-t;pts.push({x:mt*mt*cx+2*mt*t*cpx+t*t*tx,y:mt*mt*cy+2*mt*t*cpy+t*t*ty});}
+        cx=tx;cy=ty;
+      }else if(c[0]==='C'){
+        var cp1x=c[1],cp1y=c[2],cp2x=c[3],cp2y=c[4],tx=c[5],ty=c[6];
+        for(var j=1;j<=n;j++){var t=j/n,mt=1-t;pts.push({
+          x:mt*mt*mt*cx+3*mt*mt*t*cp1x+3*mt*t*t*cp2x+t*t*t*tx,
+          y:mt*mt*mt*cy+3*mt*mt*t*cp1y+3*mt*t*t*cp2y+t*t*t*ty
+        });}
+        cx=tx;cy=ty;
+      }
+    }
+    return pts;
+  }
+
+  /* Compute cumulative arc-lengths for a sampled point array */
+  function cumLen(pts){
+    var lens=[0];
+    for(var i=1;i<pts.length;i++){
+      var dx=pts[i].x-pts[i-1].x,dy=pts[i].y-pts[i-1].y;
+      lens.push(lens[i-1]+Math.sqrt(dx*dx+dy*dy));
+    }
+    return lens;
+  }
+
+  /* Draw a stroke up to a given arc-length target */
+  function drawUpTo(ctx,pts,lens,target){
+    if(pts.length<2||target<=0)return;
+    ctx.beginPath();
+    ctx.moveTo(pts[0].x,pts[0].y);
+    for(var i=1;i<pts.length;i++){
+      if(lens[i]>=target){
+        var prev=lens[i-1],span=lens[i]-prev;
+        if(span>0){
+          var frac=(target-prev)/span;
+          ctx.lineTo(pts[i-1].x+(pts[i].x-pts[i-1].x)*frac,pts[i-1].y+(pts[i].y-pts[i-1].y)*frac);
+        }
+        break;
+      }
+      ctx.lineTo(pts[i].x,pts[i].y);
+    }
+    ctx.stroke();
+  }
+
+  function initSig(){
+    var canvas=document.getElementById('sigCanvas');
+    if(!canvas)return;
+    var dpr=window.devicePixelRatio||1;
+    canvas.width=CW*dpr; canvas.height=CH*dpr;
+    canvas.style.width=CW+'px'; canvas.style.height=CH+'px';
+    var ctx=canvas.getContext('2d');
+    ctx.scale(dpr,dpr);
+    ctx.strokeStyle='#e0089c';
+    ctx.lineWidth=2.2;
+    ctx.lineCap='round';
+    ctx.lineJoin='round';
+
+    /* Pre-sample all segments */
+    var N=60;
+    var sampled=SEGS.map(function(cmds){
+      var pts=sampleSeg(cmds,N);
+      return{pts:pts,lens:cumLen(pts)};
+    });
+    var segLens=sampled.map(function(s){return s.lens[s.lens.length-1];});
+    var total=segLens.reduce(function(a,b){return a+b;},0);
+
+    var DURATION=1500, DELAY=500, start=null;
+
+    /* Smooth ease-in-out */
+    function ease(t){return t<.5?2*t*t:-1+(4-2*t)*t;}
+
+    function frame(ts){
+      if(!start)start=ts;
+      var raw=Math.min((ts-start)/DURATION,1);
+      var prog=ease(raw)*total;
+      ctx.clearRect(0,0,CW,CH);
+      var rem=prog;
+      for(var i=0;i<sampled.length;i++){
+        if(rem<=0)break;
+        drawUpTo(ctx,sampled[i].pts,sampled[i].lens,Math.min(rem,segLens[i]));
+        rem-=segLens[i];
+      }
+      if(raw<1)requestAnimationFrame(frame);
+    }
+
+    setTimeout(function(){requestAnimationFrame(frame);},DELAY);
+  }
+
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',initSig);
+  }else{
+    initSig();
+  }
 })();
 </script>
 </body>
