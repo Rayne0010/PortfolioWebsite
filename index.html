@@ -119,9 +119,7 @@
   .skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:2px}
   .skill-item{padding:24px;background:var(--surface);border:1px solid var(--border);cursor:none;transition:border-color .3s}
   .skill-item:hover{border-color:var(--magenta-dim)}
-  .skill-name{font-size:13px;font-weight:700;color:var(--text);margin-bottom:12px}
-  .skill-bar-bg{height:2px;background:var(--border);overflow:hidden}
-  .skill-bar-fill{height:100%;background:linear-gradient(90deg,var(--magenta),var(--cyan));transform:scaleX(0);transform-origin:left;transition:transform 1s cubic-bezier(.16,1,.3,1)}
+  .skill-name{font-size:13px;font-weight:700;color:var(--text);margin-bottom:8px}
   .project-link{display:inline-block;margin-top:16px;font-size:10px;color:var(--magenta-dim);letter-spacing:.15em;text-decoration:none;text-transform:uppercase;transition:color .2s}
   .project-link:hover{color:var(--magenta)}
   .skill-level{font-size:10px;color:var(--text-dim);margin-top:8px;letter-spacing:.1em}
@@ -253,10 +251,11 @@
     <span class="line2">Deonarine</span>
   </h1>
   <p class="hero-desc">
-    Developer, lifeguard, and student coder. Building things at the intersection of
-    <span class="hl">code</span>,
-    <span class="hl">hardware</span>, and
-    <span class="hl">service</span>.<br>
+    Developer, lifeguard, and bilingual problem-solver. Hardware-to-software builder with co-op experience at
+    <span class="hl">Publicis Toronto</span>,
+    Cisco-certified in
+    <span class="hl">IT &amp; networking</span>, and passionate about
+    <span class="hl">embedded systems</span>.<br>
     Grade 12 @ Western Technical-Commercial School, Toronto.
   </p>
   <div class="hero-cta">
@@ -382,13 +381,13 @@
     <div class="section-line"></div>
   </div>
   <div class="skills-grid">
-    <div class="skill-item reveal d1" data-lvl="0.72"><div class="skill-name">JavaScript</div><div class="skill-bar-bg"><div class="skill-bar-fill"></div></div><div class="skill-level">CISCO Certified</div></div>
-    <div class="skill-item reveal d2" data-lvl="0.78"><div class="skill-name">IT Support &amp; Networking</div><div class="skill-bar-bg"><div class="skill-bar-fill"></div></div><div class="skill-level">Co-op Experience</div></div>
-    <div class="skill-item reveal d3" data-lvl="0.85"><div class="skill-name">Hardware &amp; Systems</div><div class="skill-bar-bg"><div class="skill-bar-fill"></div></div><div class="skill-level">Multiple Arduino Projects</div></div>
-    <div class="skill-item reveal d4" data-lvl="0.80"><div class="skill-name">Bilingual (EN / FR)</div><div class="skill-bar-bg"><div class="skill-bar-fill"></div></div><div class="skill-level">French Immersion</div></div>
-    <div class="skill-item reveal d1" data-lvl="1.00"><div class="skill-name">Lifeguarding &amp; First Aid</div><div class="skill-bar-bg"><div class="skill-bar-fill"></div></div><div class="skill-level">NL + CPR-C Certified</div></div>
-    <div class="skill-item reveal d2" data-lvl="0.82"><div class="skill-name">Piano</div><div class="skill-bar-bg"><div class="skill-bar-fill"></div></div><div class="skill-level">RCM Level 7</div></div>
-    <div class="skill-item reveal d3" data-lvl="0.88"><div class="skill-name">Customer Service</div><div class="skill-bar-bg"><div class="skill-bar-fill"></div></div><div class="skill-level">Multi-role Experience</div></div>
+    <div class="skill-item reveal d1"><div class="skill-name">JavaScript</div><div class="skill-level">Self-Taught</div></div>
+    <div class="skill-item reveal d2"><div class="skill-name">IT Support &amp; Networking</div><div class="skill-level">Cisco Certified &mdash; Co-op @ Publicis</div></div>
+    <div class="skill-item reveal d3"><div class="skill-name">Hardware &amp; Systems</div><div class="skill-level">3 Arduino Projects</div></div>
+    <div class="skill-item reveal d4"><div class="skill-name">Bilingual (EN / FR)</div><div class="skill-level">French Immersion</div></div>
+    <div class="skill-item reveal d1"><div class="skill-name">Lifeguarding &amp; First Aid</div><div class="skill-level">NL + CPR-C Certified</div></div>
+    <div class="skill-item reveal d2"><div class="skill-name">Piano</div><div class="skill-level">RCM Level 7</div></div>
+    <div class="skill-item reveal d3"><div class="skill-name">Customer Service</div><div class="skill-level">Multi-role Experience</div></div>
   </div>
 </section>
 
@@ -432,12 +431,13 @@
   <p class="contact-sub reveal d2">Open to collaborations, projects, and conversations.<span class="blink">_</span></p>
   <div class="contact-links reveal d3">
     <a href="#" id="emailBtn" class="btn-primary">Send Email</a>
+    <a href="https://www.linkedin.com/in/julian-deonarine-56851a310/" target="_blank" class="btn-outline">LinkedIn</a>
     <a href="https://github.com/Rayne0010" target="_blank" class="btn-outline">GitHub</a>
   </div>
 </section>
 
 <footer>
-  <span>// julian deonarine &copy; 2025</span>
+  <span>// julian deonarine &copy; 2026</span>
   <span>built with intention &mdash; Toronto, CA</span>
 </footer>
 
@@ -494,16 +494,7 @@
     });
   }
 
-  // Skill bars
-  var so=new IntersectionObserver(function(entries){entries.forEach(function(e){
-    if(e.isIntersecting){
-      var lvl=parseFloat(e.target.getAttribute('data-lvl')||'0.5');
-      var bar=e.target.querySelector('.skill-bar-fill');
-      if(bar)setTimeout(function(){bar.style.transform='scaleX('+lvl+')';},150);
-      so.unobserve(e.target);
-    }
-  });},{threshold:.4});
-  document.querySelectorAll('.skill-item').forEach(function(el){so.observe(el);});
+  // Skill bars removed
 })();
 </script>
 
