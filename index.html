@@ -43,9 +43,10 @@
 
   /* ── Custom Dual-Ring Cursor ─────────────────────────────────────────── */
   /* Inner dot: snaps directly to mouse position */
-  .cursor{position:fixed;width:12px;height:12px;background:var(--magenta);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s;mix-blend-mode:screen}
+  /* opacity:0 on load — JS reveals on first mousemove so it never flashes at (0,0) */
+  .cursor{position:fixed;width:12px;height:12px;background:var(--magenta);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s,opacity .3s;mix-blend-mode:screen;opacity:0}
   /* Outer ring: lags behind via JS lerp for a trailing feel */
-  .cursor-ring{position:fixed;width:36px;height:36px;border:1px solid var(--magenta);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .2s,height .2s,opacity .2s;opacity:.5}
+  .cursor-ring{position:fixed;width:36px;height:36px;border:1px solid var(--magenta);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .2s,height .2s,opacity .3s;opacity:0}
 
   /* ── Background: Noise Texture + Grid Overlay ───────────────────────── */
   /* SVG fractal noise baked into a data URI — zero extra HTTP requests */
@@ -634,12 +635,20 @@
     var r = document.getElementById('cring');    // outer ring — lags via lerp
     var mx = 0, my = 0;   // actual mouse position
     var rx = 0, ry = 0;   // ring's smoothed position
+    var cursorVisible = false;
 
-    /* Move inner dot directly to mouse on every event */
+    /* On first move: position both elements before revealing them,
+       so they never snap in from (0,0) */
     document.addEventListener('mousemove', function(e) {
       mx = e.clientX; my = e.clientY;
       c.style.left = mx + 'px';
       c.style.top  = my + 'px';
+      if (!cursorVisible) {
+        cursorVisible = true;
+        rx = mx; ry = my;  // snap ring to current position instantly
+        c.style.opacity = '1';
+        r.style.opacity = '0.5';
+      }
     });
 
     /* Ring chases the mouse at 12% per frame — creates the trailing lag */
@@ -661,7 +670,7 @@
       el.addEventListener('mouseleave', function() {
         c.style.width = '12px'; c.style.height = '12px';
         r.style.width = '36px'; r.style.height = '36px';
-        r.style.opacity = '0.5';
+        r.style.opacity = '0.5';  // restore to resting opacity, not 0
       });
     });
   }
