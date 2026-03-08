@@ -107,6 +107,18 @@
   .tag{font-size:10px;padding:4px 10px;border:1px solid var(--border);color:var(--text-dim);letter-spacing:.1em;text-transform:uppercase;transition:border-color .2s,color .2s}
   .project-card:hover .tag{border-color:#7e22ce;color:var(--text)}
 
+  /* Featured / current project */
+  .project-card.featured{border-color:var(--magenta-dim);background:linear-gradient(135deg,rgba(224,8,156,.07) 0%,var(--surface) 60%)}
+  .project-card.featured::before{background:linear-gradient(135deg,rgba(224,8,156,.12) 0%,rgba(224,8,156,.04) 100%)}
+  .project-card.featured:hover{border-color:var(--magenta);box-shadow:0 16px 48px rgba(224,8,156,.22),0 4px 12px rgba(0,0,0,.4)}
+  .project-card.featured .project-glow{background:radial-gradient(circle,rgba(224,8,156,.22) 0%,transparent 70%)}
+  .project-card.featured:hover .project-title{color:var(--magenta)}
+  .project-card.featured:hover .tag{border-color:var(--magenta-dim)}
+  .project-card.featured::after{color:var(--magenta)}
+  .featured-badge{display:inline-flex;align-items:center;gap:6px;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--magenta);border:1px solid var(--magenta-dim);padding:3px 10px;margin-bottom:14px;width:fit-content}
+  .featured-dot{width:6px;height:6px;border-radius:50%;background:var(--magenta);animation:ping .9s ease-in-out infinite}
+  @keyframes ping{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.4)}}
+
   .achievements-list{display:flex;flex-direction:column;gap:2px}
   .achievement-item{display:grid;grid-template-columns:80px 1fr auto;align-items:center;gap:32px;padding:28px 32px;background:var(--surface);border:1px solid var(--border);transition:border-color .3s,transform .3s;cursor:none;position:relative;overflow:hidden}
   .achievement-item::after{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--magenta);transform:scaleY(0);transform-origin:bottom;transition:transform .3s}
@@ -317,8 +329,9 @@
     <div class="section-line"></div>
   </div>
   <div class="projects-grid">
-    <a href="https://github.com/Rayne0010/chromebook-cart-security" target="_blank" class="project-card reveal d1">
+    <a href="https://github.com/Rayne0010/chromebook-cart-security" target="_blank" class="project-card featured reveal d1">
       <div class="project-glow"></div>
+      <div class="featured-badge"><span class="featured-dot"></span>Current Project</div>
       <div class="project-lang">C++ &mdash; TEJ4M</div>
       <div class="project-title">Chromebook Cart Security</div>
       <p class="project-desc">Arduino-based school Chromebook sign-out/sign-in system. RFID room entry, 12-digit keypad input, LCD feedback, servo door lock, fingerprint admin access, and distance-sensor tamper detection. Team project with Ethan A. and Lennon F.</p>
