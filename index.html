@@ -26,9 +26,10 @@
   nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:20px 48px;background:linear-gradient(to bottom,rgba(8,8,16,.95) 60%,transparent);backdrop-filter:blur(6px);-webkit-mask-image:linear-gradient(to bottom,black 70%,transparent 100%);mask-image:linear-gradient(to bottom,black 70%,transparent 100%)}
   .nav-logo{font-size:13px;font-weight:700;color:var(--magenta);letter-spacing:.1em;text-transform:uppercase}
   .nav-logo span{color:var(--text-muted);font-weight:400}
-  .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;z-index:200}
+  .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;z-index:200;transition:transform .2s,opacity .2s;cursor:none}
   .hamburger span{display:block;width:22px;height:2px;background:var(--text-muted);transition:transform .3s,opacity .3s,background .3s}
   .hamburger:hover span{background:#9333ea}
+  .hamburger:hover{transform:scale(1.15);opacity:.85}
   .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
   .hamburger.open span:nth-child(2){opacity:0}
   .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
@@ -43,9 +44,9 @@
   #sigCanvas{display:block;filter:drop-shadow(0 0 6px rgba(224,8,156,0));transition:filter .4s}
   #sigCanvas:hover{filter:drop-shadow(0 0 8px rgba(224,8,156,.6))}
   .nav-links{display:flex;gap:32px;list-style:none}
-  .nav-links a{color:var(--text-muted);text-decoration:none;font-size:11px;letter-spacing:.15em;text-transform:uppercase;transition:color .2s;position:relative;cursor:none}
+  .nav-links a{color:var(--text-muted);text-decoration:none;font-size:11px;letter-spacing:.15em;text-transform:uppercase;transition:color .2s,transform .2s,opacity .2s;position:relative;cursor:none;display:inline-block}
   .nav-links a::before{content:'// ';color:#7e22ce;opacity:0;transition:opacity .2s}
-  .nav-links a:hover{color:#9333ea}
+  .nav-links a:hover{color:#9333ea;transform:translateY(-2px)}
   .nav-links a:hover::before{opacity:1}
 
   .hero{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:0 48px;z-index:1;overflow:hidden}
@@ -210,7 +211,7 @@
 <div class="cursor-ring" id="cring"></div>
 
 <nav>
-  <a href="#" aria-label="Back to top" style="display:block;line-height:0;cursor:none"><canvas class="nav-logo" id="sigCanvas" aria-label="JD signature"></canvas></a>
+  <a href="#" aria-label="Back to top" style="display:block;line-height:0;cursor:none;transition:transform .2s,opacity .2s" onmouseenter="this.style.transform='scale(1.08)';this.style.opacity='0.85'" onmouseleave="this.style.transform='scale(1)';this.style.opacity='1'"><canvas class="nav-logo" id="sigCanvas" aria-label="JD signature"></canvas></a>
   <ul class="nav-links">
     <li><a href="#projects">Projects</a></li>
     <li><a href="#achievements">Awards</a></li>
