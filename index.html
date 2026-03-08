@@ -4,6 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Julian Deonarine // Portfolio</title>
+<meta name="description" content="Julian Deonarine — hardware and software builder, Cisco-certified, co-op at Publicis Toronto. Grade 12 student in Toronto with embedded systems, IT, and web projects.">
+<meta property="og:title" content="Julian Deonarine // Portfolio">
+<meta property="og:description" content="Hardware-to-software builder with co-op experience at Publicis Toronto. Cisco-certified, bilingual, Grade 12 @ Western Technical-Commercial School.">
+<meta property="og:url" content="https://rayne0010.github.io/PortfolioWebsite/">
+<meta property="og:type" content="website">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -122,7 +127,14 @@
   .skill-name{font-size:13px;font-weight:700;color:var(--text);margin-bottom:8px}
   .project-link{display:inline-block;margin-top:16px;font-size:10px;color:var(--magenta-dim);letter-spacing:.15em;text-decoration:none;text-transform:uppercase;transition:color .2s}
   .project-link:hover{color:var(--magenta)}
-  .skill-level{font-size:10px;color:var(--text-dim);margin-top:8px;letter-spacing:.1em}
+  .skill-level{font-size:10px;color:var(--text-muted);margin-top:8px;letter-spacing:.1em}
+
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px}
+  .about-block{padding:32px;background:var(--surface);border:1px solid var(--border)}
+  .about-block-label{font-size:10px;color:var(--magenta);letter-spacing:.2em;text-transform:uppercase;margin-bottom:16px}
+  .about-block-text{font-size:12px;color:var(--text-muted);line-height:1.9}
+  .about-block-text strong{color:var(--text);font-weight:700}
+  @media(max-width:768px){.about-grid{grid-template-columns:1fr}}
 
   .experience-timeline{position:relative;padding-left:40px}
   .experience-timeline::before{content:'';position:absolute;left:0;top:8px;bottom:8px;width:1px;background:linear-gradient(to bottom,var(--magenta),var(--border))}
@@ -224,6 +236,7 @@
 <nav>
   <a href="#" aria-label="Back to top" style="display:block;line-height:0;cursor:none;transition:transform .2s,opacity .2s" onmouseenter="this.style.transform='scale(1.08)';this.style.opacity='0.85'" onmouseleave="this.style.transform='scale(1)';this.style.opacity='1'"><canvas class="nav-logo" id="sigCanvas" aria-label="JD signature"></canvas></a>
   <ul class="nav-links">
+    <li><a href="#about">About</a></li>
     <li><a href="#projects">Projects</a></li>
     <li><a href="#achievements">Awards</a></li>
     <li><a href="#skills">Skills</a></li>
@@ -236,6 +249,7 @@
 </nav>
 
 <div class="mobile-menu" id="mobileMenu">
+  <a href="#about" class="mobile-link">About</a>
   <a href="#projects" class="mobile-link">Projects</a>
   <a href="#achievements" class="mobile-link">Awards</a>
   <a href="#skills" class="mobile-link">Skills</a>
@@ -251,10 +265,10 @@
     <span class="line2">Deonarine</span>
   </h1>
   <p class="hero-desc">
-    Developer, lifeguard, and bilingual problem-solver. Hardware-to-software builder with co-op experience at
-    <span class="hl">Publicis Toronto</span>,
+    Hardware-to-software builder with co-op experience at
+    <span class="hl">Publicis Toronto</span>.
     Cisco-certified in
-    <span class="hl">IT &amp; networking</span>, and passionate about
+    <span class="hl">JS &amp; networking</span>, bilingual in English and French, and passionate about
     <span class="hl">embedded systems</span>.<br>
     Grade 12 @ Western Technical-Commercial School, Toronto.
   </p>
@@ -271,6 +285,28 @@
     <div class="status-line">// <span>location</span>: Toronto, CA</div>
     <div class="status-line">// <span>stack</span>: JS, hardware, networks</div>
     <div class="status-line">// <span>cert</span>: NL, swim instructor, first aid</div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="section-header reveal">
+    <span class="section-num">00</span>
+    <span class="section-title">About</span>
+    <div class="section-line"></div>
+  </div>
+  <div class="about-grid">
+    <div class="about-block reveal d1">
+      <div class="about-block-label">// background</div>
+      <p class="about-block-text">
+        I'm a Grade 12 student at <strong>Western Technical-Commercial School</strong> in Toronto with a focus on computer technology and electronics. I build things across the full stack — from low-level Arduino firmware and sensor networks to Java applications and front-end web work. My co-op placement at <strong>Publicis Toronto</strong> gave me real-world exposure to IT support, server imaging, network maintenance, and end-user training in a bilingual, professional environment.
+      </p>
+    </div>
+    <div class="about-block reveal d2">
+      <div class="about-block-label">// beyond the screen</div>
+      <p class="about-block-text">
+        Outside of tech, I'm a <strong>National Lifeguard</strong>, swim instructor, and emergency first aid instructor — all active certifications. I've been a competitive swimmer and triathlete, and currently play competitive soccer with <strong>Toronto High Park FC</strong>. I'm also a <strong>Royal Conservatory Level 7</strong> pianist and fully bilingual in English and French through years of French Immersion schooling.
+      </p>
+    </div>
   </div>
 </section>
 
@@ -326,6 +362,15 @@
         <span class="tag">Java</span><span class="tag">CLI</span><span class="tag">Game</span>
       </div>
     </a>
+    <a href="https://github.com/Rayne0010/PortfolioWebsite" target="_blank" class="project-card reveal d2">
+      <div class="project-glow"></div>
+      <div class="project-lang">HTML / CSS / JS &mdash; Personal</div>
+      <div class="project-title">This Portfolio</div>
+      <p class="project-desc">Single-file portfolio site built from scratch. Features a canvas-drawn animated signature, custom dual-ring cursor, scroll-reveal animations, IntersectionObserver skill triggers, email obfuscation, and a fully responsive mobile layout.</p>
+      <div class="project-tags">
+        <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span><span class="tag">Canvas</span>
+      </div>
+    </a>
   </div>
 </section>
 
@@ -356,6 +401,11 @@
       <div><div class="achievement-name">Royal Conservatory Piano &mdash; Level 7</div><div class="achievement-sub">RCM Advanced Piano Certification</div></div>
       <span class="achievement-badge badge-gold">Arts</span>
     </div>
+    <div class="achievement-item reveal d4">
+      <div class="achievement-year">2024</div>
+      <div><div class="achievement-name">Cisco JS Essentials 1 &amp; 2</div><div class="achievement-sub">Cisco Networking Academy &mdash; JavaScript Programming</div></div>
+      <span class="achievement-badge badge-magenta">Certification</span>
+    </div>
     <div class="achievement-item reveal d3">
       <div class="achievement-year">2023</div>
       <div><div class="achievement-name">Bronze Cross Certification</div><div class="achievement-sub">Lifesaving Society &mdash; January 2023</div></div>
@@ -365,6 +415,11 @@
       <div class="achievement-year">2021</div>
       <div><div class="achievement-name">Bronze Medallion Certification</div><div class="achievement-sub">Lifesaving Society &mdash; March 2021</div></div>
       <span class="achievement-badge badge-silver">Certification</span>
+    </div>
+    <div class="achievement-item reveal d1">
+      <div class="achievement-year">2021</div>
+      <div><div class="achievement-name">CANSail 1</div><div class="achievement-sub">Toronto Sailing and Canoe Club</div></div>
+      <span class="achievement-badge badge-cyan">Sport</span>
     </div>
     <div class="achievement-item reveal d4">
       <div class="achievement-year">2019</div>
