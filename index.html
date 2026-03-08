@@ -431,7 +431,7 @@
   <h2 class="contact-heading reveal d1">Get In<br><span class="hollow">Touch.</span></h2>
   <p class="contact-sub reveal d2">Open to collaborations, projects, and conversations.<span class="blink">_</span></p>
   <div class="contact-links reveal d3">
-    <a href="https://mail.google.com/mail/?view=cm&to=juliandeonarine296@gmail.com" target="_blank" class="btn-primary">Send Email</a>
+    <a href="#" id="emailBtn" class="btn-primary">Send Email</a>
     <a href="https://github.com/Rayne0010" target="_blank" class="btn-outline">GitHub</a>
   </div>
 </section>
@@ -455,6 +455,19 @@
   // Scroll reveal
   var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:.1});
   document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+
+  // Email obfuscation — assembled at runtime, never in static HTML
+  (function(){
+    var u='juliandeonarine296';
+    var d='gmail.com';
+    var btn=document.getElementById('emailBtn');
+    if(btn){
+      btn.addEventListener('click',function(e){
+        e.preventDefault();
+        window.open('https://mail.google.com/mail/?view=cm&to='+u+'@'+d,'_blank');
+      });
+    }
+  })();
 
   // Hamburger menu
   var hbtn=document.getElementById('hamburger');
