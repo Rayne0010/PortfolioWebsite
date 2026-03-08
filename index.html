@@ -28,7 +28,7 @@
   .nav-logo span{color:var(--text-muted);font-weight:400}
   .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;z-index:200}
   .hamburger span{display:block;width:22px;height:2px;background:var(--text-muted);transition:transform .3s,opacity .3s,background .3s}
-  .hamburger:hover span{background:var(--magenta)}
+  .hamburger:hover span{background:#9333ea}
   .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
   .hamburger.open span:nth-child(2){opacity:0}
   .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
@@ -36,16 +36,16 @@
   .mobile-menu{display:flex;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(8,8,16,.97);z-index:150;flex-direction:column;justify-content:center;align-items:center;gap:36px;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .3s,visibility .3s}
   .mobile-menu.open{opacity:1;visibility:visible;pointer-events:all}
   .mobile-menu a{color:var(--text-muted);text-decoration:none;font-size:13px;letter-spacing:.2em;text-transform:uppercase;transition:color .2s;position:relative}
-  .mobile-menu a::before{content:'// ';color:var(--magenta-dim);opacity:0;transition:opacity .2s}
-  .mobile-menu a:hover{color:var(--text)}
+  .mobile-menu a::before{content:'// ';color:#7e22ce;opacity:0;transition:opacity .2s}
+  .mobile-menu a:hover{color:#9333ea}
   .mobile-menu a:hover::before{opacity:1}
 
   #sigCanvas{display:block;filter:drop-shadow(0 0 6px rgba(224,8,156,0));transition:filter .4s}
   #sigCanvas:hover{filter:drop-shadow(0 0 8px rgba(224,8,156,.6))}
   .nav-links{display:flex;gap:32px;list-style:none}
   .nav-links a{color:var(--text-muted);text-decoration:none;font-size:11px;letter-spacing:.15em;text-transform:uppercase;transition:color .2s;position:relative;cursor:none}
-  .nav-links a::before{content:'// ';color:var(--magenta-dim);opacity:0;transition:opacity .2s}
-  .nav-links a:hover{color:var(--text)}
+  .nav-links a::before{content:'// ';color:#7e22ce;opacity:0;transition:opacity .2s}
+  .nav-links a:hover{color:#9333ea}
   .nav-links a:hover::before{opacity:1}
 
   .hero{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:0 48px;z-index:1;overflow:hidden}
