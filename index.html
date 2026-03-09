@@ -218,18 +218,18 @@
   @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
 
   /* ── Scroll Reveal ───────────────────────────────────────────────────── */
-  /* Elements start invisible/shifted down; JS adds .visible via IntersectionObserver */
+  /* Elements start invisible/shifted down; JS adds .visible via IntersectionObserver.
+     Using @keyframes (not transition) so the reveal NEVER touches the element's
+     transition property — hover effects on cards/buttons are fully unaffected. */
   .reveal{opacity:0;transform:translateY(30px)}
-  /* Transition only applies BEFORE .visible is added — once visible, each element
-     falls back to its own transition rules (e.g. project card's border/shadow hover).
-     Using :not(.visible) means the cascade no longer overrides .project-card's
-     transition:border-color/box-shadow after the reveal animation completes. */
-  .reveal:not(.visible){transition:opacity .7s ease,transform .7s ease}
-  .reveal.visible{opacity:1;transform:translateY(0);transition-delay:0s}
-  /* Staggered entry delays — apply d1–d4 to siblings for cascade effect.
-     Delay is cleared by .reveal.visible above once animation completes,
-     so hover effects on the element are not delayed afterwards. */
-  .d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+  @keyframes reveal-fade-up{to{opacity:1;transform:translateY(0)}}
+  /* animation-fill-mode:both freezes at 'to' after completion and 'from' during delay */
+  .reveal.visible{animation:reveal-fade-up .7s ease both;opacity:1;transform:translateY(0)}
+  /* Stagger delays — scoped to .visible so non-visible elements aren't affected */
+  .visible.d1{animation-delay:.1s}
+  .visible.d2{animation-delay:.2s}
+  .visible.d3{animation-delay:.3s}
+  .visible.d4{animation-delay:.4s}
 
   /* ── Responsive: Tablet / Mobile (≤768px) ───────────────────────────── */
   @media(max-width:768px){
@@ -299,7 +299,11 @@
   @media(prefers-reduced-motion:reduce){
     *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
     html{scroll-behavior:auto}
+    /* Hero elements animate in normally — force visible */
     .hero-tag,.hero-name,.hero-desc,.hero-cta,.hero-scroll,.status-bar{opacity:1;transform:none}
+    /* Reveal elements use @keyframes now — force visible so they don't stay
+       invisible if the animation is killed by animation-duration:.01ms above */
+    .reveal{opacity:1;transform:none}
   }
 
   /* ── Touch / No-Hover Devices ───────────────────────────────────────── */
