@@ -204,7 +204,7 @@
   .d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
 
   /* ── Responsive: Tablet / Mobile (≤768px) ───────────────────────────── */
-  @media(max-width:768px){
+  @media(max-width:1024px){
     nav{padding:16px 20px}
     .nav-links{display:none}
     .hamburger{display:flex}
@@ -236,7 +236,7 @@
     footer{flex-direction:column;gap:8px;padding:20px;text-align:center}
   }
 
-  @media(max-width:480px){
+  @media(max-width:480px),(max-width:768px) and (hover:none){
     .skills-grid{grid-template-columns:1fr}
     .hero-name{letter-spacing:-.04em}
     .project-tags{gap:6px}
@@ -244,7 +244,7 @@
   }
 
   /* ── Touch / No-Hover Devices ───────────────────────────────────────── */
-  @media(hover:none){
+  @media(hover:none),(max-width:1024px) and (pointer:coarse){
     body{cursor:auto}
     a,button,.achievement-item,.skill-item{cursor:pointer}
     .nav-links a:hover{color:var(--text-muted);transform:none}
@@ -549,7 +549,7 @@
 (function(){
 
   /* ── 1. Custom Dual-Ring Cursor ──────────────────────────────────────── */
-  var isTouch = window.matchMedia('(hover:none)').matches;
+  var isTouch = window.matchMedia('(hover:none)').matches || navigator.maxTouchPoints > 0 || window.innerWidth <= 1024;
   if (!isTouch) {
     var c = document.getElementById('cursor');
     var r = document.getElementById('cring');
