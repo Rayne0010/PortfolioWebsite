@@ -603,7 +603,18 @@
     });
   }
 
-  /* ── 3. Scroll Reveal ────────────────────────────────────────────────── */
+  /* ── 3. Desktop Nav Smooth Scroll ───────────────────────────────────── */
+  document.querySelectorAll('.nav-links a[href^="#"]').forEach(function(a) {
+    a.addEventListener('click', function(e) {
+      var target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+
+  /* ── 4. Scroll Reveal ────────────────────────────────────────────────── */
   var io = new IntersectionObserver(function(entries) {
     entries.forEach(function(e) {
       if (e.isIntersecting) e.target.classList.add('visible');
@@ -611,7 +622,7 @@
   }, { threshold: .1 });
   document.querySelectorAll('.reveal').forEach(function(el) { io.observe(el); });
 
-  /* ── 4. Email Obfuscation ────────────────────────────────────────────── */
+  /* ── 5. Email Obfuscation ────────────────────────────────────────────── */
   (function() {
     var u = 'raynedeonarine', d = 'gmail.com';
     var btn = document.getElementById('emailBtn');
