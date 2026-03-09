@@ -218,22 +218,11 @@
   @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
 
   /* ── Scroll Reveal ───────────────────────────────────────────────────── */
-  /* Elements start invisible/shifted down; JS adds .visible via IntersectionObserver.
-     Using @keyframes (not transition) so the reveal NEVER touches the element's
-     transition property — hover effects on cards/buttons are fully unaffected. */
-  .reveal{opacity:0;transform:translateY(30px)}
-  /* Explicit from/to so the browser never guesses the start state from computed style */
-  @keyframes reveal-fade-up{
-    from{opacity:0;transform:translateY(30px)}
-    to{opacity:1;transform:translateY(0)}
-  }
-  /* fill-mode:both: holds 'from' during delay (stays invisible) and 'to' after finish */
-  .reveal.visible{animation:reveal-fade-up .7s ease both}
-  /* Stagger delays — scoped to .visible so non-visible elements aren't affected */
-  .visible.d1{animation-delay:.1s}
-  .visible.d2{animation-delay:.2s}
-  .visible.d3{animation-delay:.3s}
-  .visible.d4{animation-delay:.4s}
+  /* Elements start invisible/shifted down; JS adds .visible via IntersectionObserver */
+  .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.visible{opacity:1;transform:translateY(0);transition-delay:0s}
+  /* Staggered entry delays — apply d1–d4 to siblings for cascade effect */
+  .d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
 
   /* ── Responsive: Tablet / Mobile (≤768px) ───────────────────────────── */
   @media(max-width:768px){
@@ -305,8 +294,7 @@
     html{scroll-behavior:auto}
     /* Hero elements animate in normally — force visible */
     .hero-tag,.hero-name,.hero-desc,.hero-cta,.hero-scroll,.status-bar{opacity:1;transform:none}
-    /* Reveal elements use @keyframes now — force visible so they don't stay
-       invisible if the animation is killed by animation-duration:.01ms above */
+    /* Force reveal elements visible so they don't stay hidden when transitions are killed */
     .reveal{opacity:1;transform:none}
   }
 
@@ -958,3 +946,4 @@
 </script>
 </body>
 </html>
+
