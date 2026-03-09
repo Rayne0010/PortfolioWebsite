@@ -638,7 +638,14 @@
       document.body.style.overflow = open ? 'hidden' : '';
     });
     mmenu.querySelectorAll('.mobile-link').forEach(function(a) {
-      a.addEventListener('click', closeMenu);
+      a.addEventListener('click', function(e) {
+        e.preventDefault();
+        var target = document.querySelector(a.getAttribute('href'));
+        closeMenu();
+        setTimeout(function() {
+          if (target) target.scrollIntoView({ behavior: 'smooth' });
+        }, 300);
+      });
     });
     mmenu.addEventListener('click', function(e) {
       if (e.target === mmenu) closeMenu();
