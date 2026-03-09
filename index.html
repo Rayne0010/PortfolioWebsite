@@ -222,9 +222,13 @@
      Using @keyframes (not transition) so the reveal NEVER touches the element's
      transition property — hover effects on cards/buttons are fully unaffected. */
   .reveal{opacity:0;transform:translateY(30px)}
-  @keyframes reveal-fade-up{to{opacity:1;transform:translateY(0)}}
-  /* animation-fill-mode:both freezes at 'to' after completion and 'from' during delay */
-  .reveal.visible{animation:reveal-fade-up .7s ease both;opacity:1;transform:translateY(0)}
+  /* Explicit from/to so the browser never guesses the start state from computed style */
+  @keyframes reveal-fade-up{
+    from{opacity:0;transform:translateY(30px)}
+    to{opacity:1;transform:translateY(0)}
+  }
+  /* fill-mode:both: holds 'from' during delay (stays invisible) and 'to' after finish */
+  .reveal.visible{animation:reveal-fade-up .7s ease both}
   /* Stagger delays — scoped to .visible so non-visible elements aren't affected */
   .visible.d1{animation-delay:.1s}
   .visible.d2{animation-delay:.2s}
