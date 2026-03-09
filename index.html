@@ -30,7 +30,7 @@
 
   /* ── Reset & Base ────────────────────────────────────────────────────── */
   *{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth;scroll-padding-top:80px}
+  html{scroll-behavior:smooth}
   body{background:var(--bg);color:var(--text);font-family:'JetBrains Mono',monospace;overflow-x:hidden;cursor:none}
   a,button,.project-card,.achievement-item,.skill-item{cursor:none}
 
@@ -43,7 +43,7 @@
   body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(var(--text-dim) 1px,transparent 1px),linear-gradient(90deg,var(--text-dim) 1px,transparent 1px);background-size:60px 60px;opacity:.08;pointer-events:none;z-index:0}
 
   /* ── Navigation ─────────────────────────────────────────────────────── */
-  nav{position:fixed;top:0;left:0;right:0;z-index:1100;display:flex;justify-content:space-between;align-items:center;padding:20px 48px;background:linear-gradient(to bottom,rgba(8,8,16,.95) 60%,transparent);backdrop-filter:blur(6px)}
+  nav{position:fixed;top:0;left:0;right:0;z-index:1100;display:flex;justify-content:space-between;align-items:center;padding:20px 48px;background:linear-gradient(to bottom,rgba(8,8,16,.95) 60%,transparent);backdrop-filter:blur(6px);-webkit-mask-image:linear-gradient(to bottom,black 70%,transparent 100%);mask-image:linear-gradient(to bottom,black 70%,transparent 100%)}
   .nav-logo{font-size:13px;font-weight:700;color:var(--magenta);letter-spacing:.1em;text-transform:uppercase}
   .nav-logo span{color:var(--text-muted);font-weight:400}
   .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;padding:10px;z-index:1300;transition:transform .2s,opacity .2s}
