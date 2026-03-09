@@ -602,6 +602,12 @@
       navLogo.style.opacity   = '1';
     });
   }
+  if (navLogo) {
+    navLogo.addEventListener('click', function(e) {
+      e.preventDefault();
+      smoothScrollTo(0, 800);
+    });
+  }
 
   /* ── 3. Desktop Nav Smooth Scroll ───────────────────────────────────── */
   function smoothScrollTo(targetY, duration) {
