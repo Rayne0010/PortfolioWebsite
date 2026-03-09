@@ -219,9 +219,16 @@
 
   /* ── Scroll Reveal ───────────────────────────────────────────────────── */
   /* Elements start invisible/shifted down; JS adds .visible via IntersectionObserver */
-  .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
-  .reveal.visible{opacity:1;transform:translateY(0)}
-  /* Staggered entry delays — apply d1–d4 to siblings for cascade effect */
+  .reveal{opacity:0;transform:translateY(30px)}
+  /* Transition only applies BEFORE .visible is added — once visible, each element
+     falls back to its own transition rules (e.g. project card's border/shadow hover).
+     Using :not(.visible) means the cascade no longer overrides .project-card's
+     transition:border-color/box-shadow after the reveal animation completes. */
+  .reveal:not(.visible){transition:opacity .7s ease,transform .7s ease}
+  .reveal.visible{opacity:1;transform:translateY(0);transition-delay:0s}
+  /* Staggered entry delays — apply d1–d4 to siblings for cascade effect.
+     Delay is cleared by .reveal.visible above once animation completes,
+     so hover effects on the element are not delayed afterwards. */
   .d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
 
   /* ── Responsive: Tablet / Mobile (≤768px) ───────────────────────────── */
