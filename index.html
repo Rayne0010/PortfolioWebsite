@@ -670,14 +670,7 @@
       document.body.style.overflow = open ? 'hidden' : '';
     });
     mmenu.querySelectorAll('.mobile-link').forEach(function(a) {
-      a.addEventListener('click', function(e) {
-        e.preventDefault();
-        var target = document.querySelector(a.getAttribute('href'));
-        closeMenu();
-        setTimeout(function() {
-          if (target) smoothScrollTo(target.getBoundingClientRect().top + window.scrollY - 40, 1100);
-        }, 300);
-      });
+      a.addEventListener('click', closeMenu);
     });
     mmenu.addEventListener('click', function(e) {
       if (e.target === mmenu) closeMenu();
