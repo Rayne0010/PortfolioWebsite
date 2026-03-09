@@ -3,346 +3,242 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rayne Deonarine // Portfolio</title>
-<meta name="description" content="Rayne Deonarine — hardware and software builder, Cisco-certified, co-op at Publicis Toronto. Grade 12 student in Toronto with embedded systems, IT, and web projects.">
-<meta property="og:title" content="Rayne Deonarine // Portfolio">
-<meta property="og:description" content="Hardware-to-software builder with co-op experience at Publicis Toronto. Cisco-certified, bilingual, Grade 12 @ Western Technical-Commercial School.">
-<meta property="og:url" content="https://rayne0010.github.io/PortfolioWebsite/">
-<meta property="og:type" content="website">
-<meta property="og:image" content="https://rayne0010.github.io/PortfolioWebsite/og-image.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<link rel="icon" type="image/png" href="favicon.png">
-<!-- Preconnect to Google Fonts origin for faster font load -->
+<meta name="theme-color" content="#080810">
+<link rel="canonical" href="https://rayne0010.github.io/PortfolioWebsite/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<title>Julian Deonarine // Portfolio</title>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
-<!-- Canonical URL prevents duplicate content issues -->
-<link rel="canonical" href="https://rayne0010.github.io/PortfolioWebsite/">
-<!-- Theme color: tints browser chrome on Android Chrome / Safari PWA -->
-<meta name="theme-color" content="#080810">
+<link rel="icon" type="image/png" href="favicon.png">
+<meta property="og:title" content="Julian Deonarine // Portfolio">
+<meta property="og:description" content="Developer, lifeguard, and student coder.">
+<meta property="og:image" content="https://rayne0010.github.io/PortfolioWebsite/og-image.png">
 <style>
-  /* ── Design Tokens ──────────────────────────────────────────────────── */
-  :root {
-    --bg:#080810; --surface:#111120; --border:#1e1e35;
-    --magenta:#e0089c; --magenta-dim:#8c0560;
-    --purple:#9333ea; --purple-dim:#7e22ce;
-    --cyan:#00f5d4; --cyan-dim:#00a88e;
-    --text:#e8e8f0; --text-muted:#6b6b8a; --text-dim:#3a3a5c;
-  }
+:root {
+  --bg:#080810; --surface:#111120; --border:#1e1e35;
+  --magenta:#e0089c; --magenta-dim:#8c0560;
+  --magenta-glow:rgba(224,8,156,.15); --magenta-glow2:rgba(224,8,156,.05);
+  --cyan:#00f5d4; --cyan-dim:#00a88e;
+  --text:#e8e8f0; --text-muted:#6b6b8a; --text-dim:#3a3a5c;
+  --purple:#9333ea; --purple-dim:#7e22ce;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'JetBrains Mono',monospace;overflow-x:hidden;cursor:none}
 
-  /* ── Reset & Base ────────────────────────────────────────────────────── */
-  *{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{background:var(--bg);color:var(--text);font-family:'JetBrains Mono',monospace;overflow-x:hidden;cursor:none}
+/* ── Cursor ──────────────────────────────────────────────────────────── */
+a,button,.project-card,.achievement-item,.skill-item{cursor:none}
+.cursor{position:fixed;width:12px;height:12px;background:var(--magenta);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s;mix-blend-mode:screen}
+.cursor-ring{position:fixed;width:36px;height:36px;border:1px solid var(--magenta);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .2s,height .2s,opacity .2s;opacity:.5}
 
-  /* Consolidated cursor:none override — body sets it, but browsers give
-     <a> and <button> a default pointer cursor that would win otherwise.
-     All interactive elements are covered here in one rule. */
-  a,button,.project-card,.achievement-item,.skill-item{cursor:none}
+/* ── Overlays ────────────────────────────────────────────────────────── */
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:1000;opacity:.4}
+body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(var(--text-dim) 1px,transparent 1px),linear-gradient(90deg,var(--text-dim) 1px,transparent 1px);background-size:60px 60px;opacity:.08;pointer-events:none;z-index:0}
 
-  /* ── Custom Dual-Ring Cursor ─────────────────────────────────────────── */
-  /* Inner dot: snaps directly to mouse position */
-  /* opacity:0 on load — JS reveals on first mousemove so it never flashes at (0,0) */
-  .cursor{position:fixed;width:12px;height:12px;background:var(--magenta);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s,opacity .3s;mix-blend-mode:screen;opacity:0}
-  /* Outer ring: lags behind via JS lerp for a trailing feel */
-  .cursor-ring{position:fixed;width:36px;height:36px;border:1px solid var(--magenta);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .2s,height .2s,opacity .3s;opacity:0}
+/* ── Nav ─────────────────────────────────────────────────────────────── */
+nav{position:fixed;top:0;left:0;right:0;z-index:1100;display:flex;justify-content:space-between;align-items:center;padding:20px 48px;background:linear-gradient(to bottom,rgba(8,8,16,.95),transparent);backdrop-filter:blur(4px)}
+.nav-logo{font-size:13px;font-weight:700;color:var(--magenta);letter-spacing:.1em;text-transform:uppercase}
+#navLogo{display:block;line-height:0;transition:transform .2s,opacity .2s}
+#navLogo:hover{transform:scale(1.08);opacity:.85}
+#sigCanvas{display:block;filter:drop-shadow(0 0 6px rgba(224,8,156,0));transition:filter .4s}
+#sigCanvas:hover{filter:drop-shadow(0 0 8px rgba(224,8,156,.6))}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{color:var(--text-muted);text-decoration:none;font-size:11px;letter-spacing:.15em;text-transform:uppercase;transition:color .2s,transform .2s,opacity .2s;position:relative;display:inline-block;padding:10px 14px;cursor:none}
+.nav-links a::before{content:'// ';color:var(--purple-dim);opacity:0;transition:opacity .2s}
+.nav-links a:hover{color:var(--purple);transform:translateY(-2px)}
+.nav-links a:hover::before{opacity:1}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;padding:10px;z-index:1300;transition:transform .2s,opacity .2s;cursor:pointer}
+.hamburger span{display:block;width:22px;height:2px;background:var(--text-muted);transition:transform .3s,opacity .3s,background .3s}
+.hamburger:hover span{background:var(--purple)}
+.hamburger:hover{transform:scale(1.15);opacity:.85}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mobile-menu{display:flex;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(8,8,16,.97);z-index:1200;flex-direction:column;justify-content:center;align-items:center;gap:36px;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .3s,visibility .3s}
+.mobile-menu.open{opacity:1;visibility:visible;pointer-events:auto}
+.mobile-menu a{color:var(--text-muted);text-decoration:none;font-size:13px;letter-spacing:.2em;text-transform:uppercase;transition:color .2s;position:relative}
+.mobile-menu a::before{content:'// ';color:var(--purple-dim);opacity:0;transition:opacity .2s}
+.mobile-menu a:hover{color:var(--purple)}
+.mobile-menu a:hover::before{opacity:1}
 
-  /* ── Background: Noise Texture + Grid Overlay ───────────────────────── */
-  /* SVG fractal noise baked into a data URI — zero extra HTTP requests */
-  body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:1000;opacity:.4}
-  /* Subtle 60px grid lines */
-  body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(var(--text-dim) 1px,transparent 1px),linear-gradient(90deg,var(--text-dim) 1px,transparent 1px);background-size:60px 60px;opacity:.08;pointer-events:none;z-index:0}
+/* ── Hero ────────────────────────────────────────────────────────────── */
+.hero{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:0 48px;z-index:1;overflow:hidden}
+.hero-glow{position:absolute;width:600px;height:600px;background:radial-gradient(circle,rgba(224,8,156,.12) 0%,transparent 70%);top:50%;left:30%;transform:translate(-50%,-50%);pointer-events:none;animation:glow-pulse 4s ease-in-out infinite}
+@keyframes glow-pulse{0%,100%{opacity:.8;transform:translate(-50%,-50%) scale(1)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.1)}}
+.hero-tag{font-size:11px;color:var(--magenta);letter-spacing:.2em;text-transform:uppercase;margin-bottom:24px;opacity:0;animation:fade-up .6s .2s forwards}
+.hero-name{font-size:clamp(56px,9vw,110px);font-weight:800;line-height:.95;letter-spacing:-.03em;margin-bottom:24px;opacity:0;animation:fade-up .6s .35s forwards}
+.hero-name .line2{color:transparent;-webkit-text-stroke:1px var(--magenta);display:block}
+.hero-desc{font-size:13px;color:var(--text-muted);max-width:440px;line-height:1.8;margin-bottom:48px;opacity:0;animation:fade-up .6s .5s forwards}
+.hero-desc .hl{color:var(--cyan)}
+.hero-cta{display:flex;gap:16px;opacity:0;animation:fade-up .6s .65s forwards}
+.btn-primary{padding:12px 28px;background:var(--magenta);color:#fff;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;text-decoration:none;border:none;cursor:none;transition:box-shadow .2s,transform .2s;position:relative;overflow:hidden;display:inline-block}
+.btn-primary::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.15),transparent);transform:translateX(-100%);transition:transform .4s}
+.btn-primary:hover::after{transform:translateX(100%)}
+.btn-primary:hover{box-shadow:0 0 30px var(--magenta),0 0 60px rgba(224,8,156,.3);transform:translateY(-2px)}
+.btn-outline{padding:12px 28px;background:transparent;color:var(--text-muted);font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:400;letter-spacing:.15em;text-transform:uppercase;text-decoration:none;border:1px solid var(--border);cursor:none;transition:border-color .2s,color .2s;display:inline-block}
+.btn-outline:hover{border-color:var(--magenta-dim);color:var(--text)}
+.hero-scroll{position:absolute;bottom:40px;left:48px;display:flex;align-items:center;gap:12px;font-size:10px;color:var(--text-dim);letter-spacing:.2em;text-transform:uppercase;opacity:0;animation:fade-up .6s 1s forwards}
+.hero-scroll-line{width:40px;height:1px;background:var(--text-dim);animation:scroll-line 2s ease-in-out infinite}
+@keyframes scroll-line{0%,100%{width:40px}50%{width:70px}}
+.status-bar{position:absolute;right:48px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:8px;opacity:0;animation:fade-in .6s 1.2s forwards}
+.status-line{font-size:10px;color:var(--text-dim);letter-spacing:.1em}
+.status-line span{color:var(--magenta-dim)}
+@keyframes fade-up{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fade-in{from{opacity:0}to{opacity:1}}
 
-  /* ── Navigation ─────────────────────────────────────────────────────── */
-  nav{position:fixed;top:0;left:0;right:0;z-index:1100;display:flex;justify-content:space-between;align-items:center;padding:20px 48px;background:linear-gradient(to bottom,rgba(8,8,16,.95) 60%,transparent);backdrop-filter:blur(6px);-webkit-mask-image:linear-gradient(to bottom,black 70%,transparent 100%);mask-image:linear-gradient(to bottom,black 70%,transparent 100%)}
-  .nav-logo{font-size:13px;font-weight:700;color:var(--magenta);letter-spacing:.1em;text-transform:uppercase}
-  .nav-logo span{color:var(--text-muted);font-weight:400}
-  /* Hamburger only shown on mobile — see media query */
-  .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;padding:10px;z-index:1300;transition:transform .2s,opacity .2s}
-  .hamburger span{display:block;width:22px;height:2px;background:var(--text-muted);transition:transform .3s,opacity .3s,background .3s}
-  .hamburger:hover span{background:var(--purple)}
-  .hamburger:hover{transform:scale(1.15);opacity:.85}
-  /* Animated X when open */
-  .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
-  .hamburger.open span:nth-child(2){opacity:0}
-  .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+/* ── Sections ────────────────────────────────────────────────────────── */
+section{position:relative;z-index:1;padding:100px 48px}
+.section-header{display:flex;align-items:baseline;gap:20px;margin-bottom:64px}
+.section-num{font-size:11px;color:var(--magenta);letter-spacing:.15em}
+.section-title{font-size:11px;color:var(--text-muted);letter-spacing:.2em;text-transform:uppercase}
+h2.section-title{font-weight:400}
+.section-line{flex:1;height:1px;background:var(--border)}
 
-  /* ── Mobile Fullscreen Menu ──────────────────────────────────────────── */
-  .mobile-menu{display:flex;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(8,8,16,.97);z-index:1200;flex-direction:column;justify-content:center;align-items:center;gap:36px;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .3s,visibility .3s}
-  .mobile-menu.open{opacity:1;visibility:visible;pointer-events:auto}
-  .mobile-menu a{color:var(--text-muted);text-decoration:none;font-size:13px;letter-spacing:.2em;text-transform:uppercase;transition:color .2s;position:relative}
-  .mobile-menu a::before{content:'// ';color:var(--purple-dim);opacity:0;transition:opacity .2s}
-  .mobile-menu a:hover{color:var(--purple)}
-  .mobile-menu a:hover::before{opacity:1}
+/* ── About ───────────────────────────────────────────────────────────── */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px}
+.about-block{padding:32px;background:var(--surface);border:1px solid var(--border)}
+.about-block-label{font-size:10px;color:var(--magenta);letter-spacing:.2em;text-transform:uppercase;margin-bottom:16px}
+.about-block-text{font-size:12px;color:var(--text-muted);line-height:1.9}
+.about-block-text strong{color:var(--text);font-weight:700}
 
-  /* ── Animated Canvas Signature (nav logo) ────────────────────────────── */
-  /* Hover scale/fade now handled via CSS + JS addEventListener, not inline attrs */
-  #navLogo{display:block;line-height:0;transition:transform .2s,opacity .2s}
-  #navLogo:hover{transform:scale(1.08);opacity:.85}
-  #sigCanvas{display:block;filter:drop-shadow(0 0 6px rgba(224,8,156,0));transition:filter .4s}
-  #sigCanvas:hover{filter:drop-shadow(0 0 8px rgba(224,8,156,.6))}
+/* ── Projects ────────────────────────────────────────────────────────── */
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:2px}
+.project-card{display:block;text-decoration:none;background:var(--surface);border:1px solid var(--border);padding:32px;position:relative;overflow:hidden;transition:border-color .35s,transform .35s cubic-bezier(.22,1,.36,1),box-shadow .35s;cursor:none}
+.project-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(147,51,234,.07) 0%,rgba(147,51,234,.03) 100%);opacity:0;transition:opacity .35s}
+.project-card:hover{border-color:var(--purple-dim);transform:translateY(-8px) scale(1.012);box-shadow:0 16px 40px rgba(147,51,234,.18),0 4px 12px rgba(0,0,0,.4)}
+.project-card:hover::before{opacity:1}
+.project-glow{position:absolute;top:-60px;right:-60px;width:220px;height:220px;background:radial-gradient(circle,rgba(147,51,234,.18) 0%,transparent 70%);opacity:0;transition:opacity .35s;pointer-events:none}
+.project-card:hover .project-glow{opacity:1}
+.project-card::after{content:'→';position:absolute;bottom:28px;right:28px;font-size:14px;color:var(--purple);opacity:0;transform:translateX(-6px);transition:opacity .3s,transform .3s}
+.project-card:hover::after{opacity:1;transform:translateX(0)}
+.project-card:hover .project-title{color:#c084fc}
+.project-lang{font-size:10px;color:var(--magenta);letter-spacing:.15em;text-transform:uppercase;margin-bottom:16px}
+.project-title{font-size:18px;font-weight:700;color:var(--text);margin-bottom:12px;letter-spacing:-.02em;transition:color .3s}
+.project-desc{font-size:12px;color:var(--text-muted);line-height:1.8;margin-bottom:24px}
+.project-tags{display:flex;flex-wrap:wrap;gap:8px}
+.tag{font-size:10px;padding:4px 10px;border:1px solid var(--border);color:var(--text-dim);letter-spacing:.1em;text-transform:uppercase;transition:border-color .2s,color .2s}
+.project-card:hover .tag{border-color:var(--purple-dim);color:var(--text)}
+.project-card.featured{border-color:var(--magenta-dim)}
+.project-card.featured:hover{border-color:var(--magenta);box-shadow:0 16px 40px rgba(224,8,156,.15),0 4px 12px rgba(0,0,0,.4)}
+.project-card.featured:hover .project-title{color:var(--magenta)}
+.featured-badge{display:inline-flex;align-items:center;gap:6px;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--magenta);border:1px solid var(--magenta-dim);padding:3px 10px;margin-bottom:14px;width:fit-content}
+.featured-dot{width:6px;height:6px;border-radius:50%;background:var(--magenta);animation:ping .9s ease-in-out infinite}
+@keyframes ping{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.4)}}
 
-  /* ── Desktop Nav Links ───────────────────────────────────────────────── */
-  .nav-links{display:flex;gap:16px;list-style:none}
-  .nav-links a{color:var(--text-muted);text-decoration:none;font-size:11px;letter-spacing:.15em;text-transform:uppercase;transition:color .2s,transform .2s,opacity .2s;position:relative;display:inline-block;padding:10px 14px}
-  /* '// ' prefix slides in on hover via ::before pseudo-element */
-  .nav-links a::before{content:'// ';color:var(--purple-dim);opacity:0;transition:opacity .2s}
-  .nav-links a:hover{color:var(--purple);transform:translateY(-2px)}
-  .nav-links a:hover::before{opacity:1}
+/* ── Achievements ────────────────────────────────────────────────────── */
+.achievements-list{display:flex;flex-direction:column;gap:2px}
+.achievement-item{display:grid;grid-template-columns:80px 1fr auto;align-items:center;gap:32px;padding:28px 32px;background:var(--surface);border:1px solid var(--border);transition:border-color .3s,transform .3s;cursor:none;position:relative;overflow:hidden}
+.achievement-item::after{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--magenta);transform:scaleY(0);transform-origin:bottom;transition:transform .3s}
+.achievement-item:hover{border-color:var(--magenta-dim);transform:translateX(4px)}
+.achievement-item:hover::after{transform:scaleY(1)}
+.achievement-year{font-size:11px;color:var(--magenta-dim);letter-spacing:.1em}
+.achievement-name{font-size:14px;font-weight:700;color:var(--text);letter-spacing:-.01em}
+.achievement-sub{font-size:11px;color:var(--text-muted);margin-top:4px;font-weight:400}
+.achievement-badge{font-size:10px;padding:4px 12px;letter-spacing:.1em;text-transform:uppercase;border:1px solid;white-space:nowrap}
+.badge-gold{color:#f0c040;border-color:rgba(240,192,64,.3)}
+.badge-silver{color:#a0a0b8;border-color:rgba(160,160,184,.3)}
+.badge-cyan{color:var(--cyan);border-color:rgba(0,245,212,.3)}
+.badge-magenta{color:var(--magenta);border-color:var(--magenta-dim)}
 
-  /* ── Hero Section ────────────────────────────────────────────────────── */
-  .hero{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:0 48px;z-index:1;overflow:hidden}
-  .hero-glow{position:absolute;width:600px;height:600px;background:radial-gradient(circle,rgba(224,8,156,.12) 0%,transparent 70%);top:50%;left:30%;transform:translate(-50%,-50%);pointer-events:none;animation:glow-pulse 4s ease-in-out infinite}
-  @keyframes glow-pulse{0%,100%{opacity:.8;transform:translate(-50%,-50%) scale(1)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.1)}}
+/* ── Skills ──────────────────────────────────────────────────────────── */
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:2px}
+.skill-item{padding:24px;background:var(--surface);border:1px solid var(--border);cursor:none;transition:border-color .3s}
+.skill-item:hover{border-color:var(--magenta-dim)}
+.skill-name{font-size:13px;font-weight:700;color:var(--text);margin-bottom:12px}
+.skill-bar-bg{height:2px;background:var(--border);overflow:hidden}
+.skill-bar-fill{height:100%;background:linear-gradient(90deg,var(--magenta),var(--cyan));transform:scaleX(0);transform-origin:left;transition:transform 1s cubic-bezier(.16,1,.3,1)}
+.skill-level{font-size:10px;color:var(--text-dim);margin-top:8px;letter-spacing:.1em}
 
-  .hero-tag{font-size:11px;color:var(--magenta);letter-spacing:.2em;text-transform:uppercase;margin-bottom:24px;opacity:0;animation:fade-up .6s .2s forwards}
-  .hero-name{font-size:clamp(56px,9vw,110px);font-weight:800;line-height:.95;letter-spacing:-.03em;margin-bottom:24px;opacity:0;animation:fade-up .6s .35s forwards}
-  .hero-name .line2{color:transparent;-webkit-text-stroke:1px var(--magenta);display:block}
-  .hero-desc{font-size:13px;color:var(--text-muted);max-width:440px;line-height:1.8;margin-bottom:48px;opacity:0;animation:fade-up .6s .5s forwards}
-  .hero-desc .hl{color:var(--cyan)}
-  .hero-cta{display:flex;gap:16px;opacity:0;animation:fade-up .6s .65s forwards}
+/* ── Experience ──────────────────────────────────────────────────────── */
+.experience-timeline{position:relative;padding-left:40px}
+.experience-timeline::before{content:'';position:absolute;left:0;top:8px;bottom:8px;width:1px;background:linear-gradient(to bottom,var(--magenta),var(--border))}
+.exp-item{position:relative;margin-bottom:48px}
+.exp-item::before{content:'';position:absolute;left:-44px;top:6px;width:8px;height:8px;background:var(--magenta);border-radius:50%;box-shadow:0 0 10px var(--magenta)}
+.exp-period{font-size:10px;color:var(--magenta-dim);letter-spacing:.15em;text-transform:uppercase;margin-bottom:8px}
+.exp-title{font-size:16px;font-weight:700;color:var(--text);margin-bottom:4px}
+.exp-org{font-size:12px;color:var(--cyan-dim);margin-bottom:12px}
+.exp-desc{font-size:12px;color:var(--text-muted);line-height:1.8;max-width:600px}
 
-  /* ── Buttons ─────────────────────────────────────────────────────────── */
-  /* Shared font declaration — prevents repetition in each button rule */
-  .btn-primary,.btn-outline{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.15em;text-transform:uppercase;text-decoration:none;display:inline-block}
-  /* Shimmer sweep runs via ::after pseudo-element on hover */
-  .btn-primary{padding:12px 28px;background:var(--magenta);color:#fff;font-weight:700;border:none;transition:box-shadow .2s,transform .2s;position:relative;overflow:hidden}
-  .btn-primary::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.15),transparent);transform:translateX(-100%);transition:transform .4s}
-  .btn-primary:hover::after{transform:translateX(100%)}
-  .btn-primary:hover{box-shadow:0 0 30px var(--magenta),0 0 60px rgba(224,8,156,.3);transform:translateY(-2px)}
-  .btn-outline{padding:12px 28px;background:transparent;color:var(--text-muted);font-weight:400;border:1px solid var(--border);transition:border-color .2s,color .2s}
-  .btn-outline:hover{border-color:var(--magenta-dim);color:var(--text)}
+/* ── Contact ─────────────────────────────────────────────────────────── */
+.contact-section{text-align:center;padding:120px 48px}
+.contact-pre{font-size:11px;color:var(--magenta);letter-spacing:.25em;text-transform:uppercase;margin-bottom:24px}
+.contact-heading{font-size:clamp(36px,6vw,80px);font-weight:800;line-height:1;margin-bottom:16px;letter-spacing:-.03em}
+.contact-heading .hollow{color:transparent;-webkit-text-stroke:1px var(--magenta)}
+.contact-sub{font-size:12px;color:var(--text-muted);margin-bottom:48px;letter-spacing:.05em}
+.contact-links{display:flex;justify-content:center;gap:16px;flex-wrap:wrap}
+footer{padding:24px 48px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;font-size:10px;color:var(--text-dim);letter-spacing:.1em;position:relative;z-index:1}
+.blink{animation:blink 1.2s step-end infinite;color:var(--magenta)}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
 
-  .hero-scroll{position:absolute;bottom:40px;left:48px;display:flex;align-items:center;gap:12px;font-size:10px;color:var(--text-dim);letter-spacing:.2em;text-transform:uppercase;opacity:0;animation:fade-up .6s 1s forwards}
-  .hero-scroll-line{width:40px;height:1px;background:var(--text-dim);animation:scroll-line 2s ease-in-out infinite}
-  @keyframes scroll-line{0%,100%{width:40px}50%{width:70px}}
+/* ── Scroll Reveal ───────────────────────────────────────────────────── */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
 
-  .status-bar{position:absolute;right:48px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:8px;opacity:0;animation:fade-in .6s 1.2s forwards}
-  .status-line{font-size:10px;color:var(--text-dim);letter-spacing:.1em}
-  .status-line span{color:var(--magenta-dim)}
-
-  @keyframes fade-up{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-  @keyframes fade-in{from{opacity:0}to{opacity:1}}
-
-  /* ── Shared Section Layout ───────────────────────────────────────────── */
-  section{position:relative;z-index:1;padding:100px 48px}
-  .section-header{display:flex;align-items:baseline;gap:20px;margin-bottom:64px}
-  .section-num{font-size:11px;color:var(--magenta);letter-spacing:.15em}
-  /* Reset h2 browser defaults — visual style is intentionally small/caps */
-  .section-title{font-size:11px;font-weight:400;color:var(--text-muted);letter-spacing:.2em;text-transform:uppercase}
-  .section-line{flex:1;height:1px;background:var(--border)}
-
-  /* ── Projects Grid ───────────────────────────────────────────────────── */
-  .projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:2px}
-  /* cubic-bezier gives the card lift a springy overshoot feel */
-  .project-card{display:block;text-decoration:none;background:var(--surface);border:1px solid var(--border);padding:32px;position:relative;overflow:hidden;transition:border-color .35s,transform .35s cubic-bezier(.22,1,.36,1),box-shadow .35s}
-  .project-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(147,51,234,.07) 0%,rgba(147,51,234,.03) 100%);opacity:0;transition:opacity .35s}
-  .project-card:hover{border-color:var(--purple-dim);transform:translateY(-8px) scale(1.012);box-shadow:0 16px 40px rgba(147,51,234,.18),0 4px 12px rgba(0,0,0,.4)}
-  .project-card:hover::before{opacity:1}
-  .project-glow{position:absolute;top:-60px;right:-60px;width:220px;height:220px;background:radial-gradient(circle,rgba(147,51,234,.18) 0%,transparent 70%);opacity:0;transition:opacity .35s;pointer-events:none}
-  .project-card:hover .project-glow{opacity:1}
-  /* arrow indicator */
-  .project-card::after{content:'→';position:absolute;bottom:28px;right:28px;font-size:14px;color:var(--purple);opacity:0;transform:translateX(-6px);transition:opacity .3s,transform .3s}
-  .project-card:hover::after{opacity:1;transform:translateX(0)}
-  .project-card:hover .project-title{color:#c084fc}
-  .project-lang{font-size:10px;color:var(--magenta);letter-spacing:.15em;text-transform:uppercase;margin-bottom:16px}
-  .project-title{font-size:18px;font-weight:700;color:var(--text);margin-bottom:12px;letter-spacing:-.02em;transition:color .3s}
-  .project-desc{font-size:12px;color:var(--text-muted);line-height:1.8;margin-bottom:24px}
-  .project-tags{display:flex;flex-wrap:wrap;gap:8px}
-  .tag{font-size:10px;padding:4px 10px;border:1px solid var(--border);color:var(--text-dim);letter-spacing:.1em;text-transform:uppercase;transition:border-color .2s,color .2s}
-  .project-card:hover .tag{border-color:var(--purple-dim);color:var(--text)}
-
-  /* Featured / current project */
-  .project-card.featured{border-color:var(--magenta-dim);background:linear-gradient(135deg,rgba(224,8,156,.07) 0%,var(--surface) 60%)}
-  .project-card.featured::before{background:linear-gradient(135deg,rgba(224,8,156,.12) 0%,rgba(224,8,156,.04) 100%)}
-  .project-card.featured:hover{border-color:var(--magenta);box-shadow:0 16px 48px rgba(224,8,156,.22),0 4px 12px rgba(0,0,0,.4)}
-  .project-card.featured .project-glow{background:radial-gradient(circle,rgba(224,8,156,.22) 0%,transparent 70%)}
-  .project-card.featured:hover .project-title{color:var(--magenta)}
-  .project-card.featured:hover .tag{border-color:var(--magenta-dim)}
-  .project-card.featured::after{color:var(--magenta)}
-  .featured-badge{display:inline-flex;align-items:center;gap:6px;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--magenta);border:1px solid var(--magenta-dim);padding:3px 10px;margin-bottom:14px;width:fit-content}
-  .featured-dot{width:6px;height:6px;border-radius:50%;background:var(--magenta);animation:ping .9s ease-in-out infinite}
-  @keyframes ping{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.4)}}
-
-  /* ── Achievements / Certifications ──────────────────────────────────── */
-  .achievements-list{display:flex;flex-direction:column;gap:2px}
-  .achievement-item{display:grid;grid-template-columns:80px 1fr auto;align-items:center;gap:32px;padding:28px 32px;background:var(--surface);border:1px solid var(--border);transition:border-color .3s,transform .3s;position:relative;overflow:hidden}
-  .achievement-item::after{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--magenta);transform:scaleY(0);transform-origin:bottom;transition:transform .3s}
-  .achievement-item:hover{border-color:var(--magenta-dim);transform:translateX(4px)}
-  .achievement-item:hover::after{transform:scaleY(1)}
-  .achievement-year{font-size:11px;color:var(--magenta-dim);letter-spacing:.1em}
-  .achievement-name{font-size:14px;font-weight:700;color:var(--text);letter-spacing:-.01em}
-  .achievement-sub{font-size:11px;color:var(--text-muted);margin-top:4px;font-weight:400}
-  .achievement-badge{font-size:10px;padding:4px 12px;letter-spacing:.1em;text-transform:uppercase;border:1px solid;white-space:nowrap}
-  .badge-gold{color:#f0c040;border-color:rgba(240,192,64,.3)}
-  .badge-silver{color:#a0a0b8;border-color:rgba(160,160,184,.3)}
-  .badge-cyan{color:var(--cyan);border-color:rgba(0,245,212,.3)}
-  .badge-magenta{color:var(--magenta);border-color:var(--magenta-dim)}
-
-  /* ── Skills Grid ─────────────────────────────────────────────────────── */
-  .skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:2px}
-  .skill-item{padding:24px;background:var(--surface);border:1px solid var(--border);transition:border-color .3s}
-  .skill-item:hover{border-color:var(--magenta-dim)}
-  .skill-name{font-size:13px;font-weight:700;color:var(--text);margin-bottom:8px}
-  .skill-level{font-size:10px;color:var(--text-muted);margin-top:8px;letter-spacing:.1em}
-
-  /* ── About Grid ──────────────────────────────────────────────────────── */
-  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px}
-  .about-block{padding:32px;background:var(--surface);border:1px solid var(--border)}
-  .about-block-label{font-size:10px;color:var(--magenta);letter-spacing:.2em;text-transform:uppercase;margin-bottom:16px}
-  .about-block-text{font-size:12px;color:var(--text-muted);line-height:1.9}
-  .about-block-text strong{color:var(--text);font-weight:700}
-
-  /* ── Experience Timeline ─────────────────────────────────────────────── */
-  /* Vertical gradient line from magenta to muted border */
-  .experience-timeline{position:relative;padding-left:40px}
-  .experience-timeline::before{content:'';position:absolute;left:0;top:8px;bottom:8px;width:1px;background:linear-gradient(to bottom,var(--magenta),var(--border))}
-  .exp-item{position:relative;margin-bottom:48px}
-  .exp-item::before{content:'';position:absolute;left:-44px;top:6px;width:8px;height:8px;background:var(--magenta);border-radius:50%;box-shadow:0 0 10px var(--magenta)}
-  .exp-period{font-size:10px;color:var(--magenta-dim);letter-spacing:.15em;text-transform:uppercase;margin-bottom:8px}
-  .exp-title{font-size:16px;font-weight:700;color:var(--text);margin-bottom:4px}
-  .exp-org{font-size:12px;color:var(--cyan-dim);margin-bottom:12px}
-  .exp-desc{font-size:12px;color:var(--text-muted);line-height:1.8;max-width:600px}
-
-  .contact-section{text-align:center;padding:120px 48px}
-  .contact-pre{font-size:11px;color:var(--magenta);letter-spacing:.25em;text-transform:uppercase;margin-bottom:24px}
-  .contact-heading{font-size:clamp(36px,6vw,80px);font-weight:800;line-height:1;margin-bottom:16px;letter-spacing:-.03em}
-  .contact-heading .hollow{color:transparent;-webkit-text-stroke:1px var(--magenta)}
-  .contact-sub{font-size:12px;color:var(--text-muted);margin-bottom:48px;letter-spacing:.05em}
-  .contact-links{display:flex;justify-content:center;gap:16px;flex-wrap:wrap}
-
-  footer{padding:24px 48px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;font-size:10px;color:var(--text-dim);letter-spacing:.1em;position:relative;z-index:1}
-
-  .blink{animation:blink 1.2s step-end infinite;color:var(--magenta)}
-  @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
-
-  /* ── Scroll Reveal ───────────────────────────────────────────────────── */
-  /* Elements start invisible/shifted down; JS adds .visible via IntersectionObserver */
-  .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
-  .reveal.visible{opacity:1;transform:translateY(0)}
-  /* Staggered entry delays — apply d1–d4 to siblings for cascade effect */
-  .d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
-
-  /* ── Responsive: Tablet / Mobile (≤768px) ───────────────────────────── */
-  @media(max-width:768px){
-    /* Nav */
-    nav{padding:16px 20px}
-    .nav-links{display:none}
-    .hamburger{display:flex}
-
-    /* Hide custom cursor on touch */
-    .cursor,.cursor-ring{display:none}
-    body{cursor:auto}
-    a,button{cursor:pointer}
-
-    /* Hero */
-    .hero{padding:0 20px;min-height:100svh}
-    .hero-glow{width:300px;height:300px;left:50%;top:40%}
-    .hero-tag{font-size:10px;margin-bottom:16px}
-    .hero-desc{font-size:12px;max-width:100%;margin-bottom:36px}
-    .hero-cta{flex-direction:column;gap:12px;align-items:flex-start}
-    .btn-primary,.btn-outline{width:100%;text-align:center;padding:14px 24px}
-    .hero-scroll{left:20px;bottom:24px}
-    .status-bar{display:none}
-
-    /* Sections */
-    section{padding:72px 20px}
-    .section-header{margin-bottom:40px}
-
-    /* Projects */
-    .projects-grid{grid-template-columns:1fr}
-    .project-card{padding:24px}
-
-    /* Achievements */
-    .achievement-item{grid-template-columns:1fr;gap:8px;padding:20px}
-    .achievement-badge{align-self:flex-start}
-
-    /* Skills */
-    .skills-grid{grid-template-columns:repeat(2,1fr)}
-
-    /* Experience */
-    .experience-timeline{padding-left:24px}
-    .exp-item::before{left:-28px}
-    .exp-desc{max-width:100%}
-
-    /* About */
-    .about-grid{grid-template-columns:1fr}
-
-    /* Contact */
-    .contact-section{padding:80px 20px}
-    .contact-links{flex-direction:column;align-items:center}
-    .contact-links .btn-primary,.contact-links .btn-outline{width:100%;max-width:280px;text-align:center}
-
-    /* Footer */
-    footer{flex-direction:column;gap:8px;padding:20px;text-align:center}
-  }
-
-  @media(max-width:480px){
-    .skills-grid{grid-template-columns:1fr}
-    .hero-name{letter-spacing:-.04em}
-    .project-tags{gap:6px}
-    .achievement-item{padding:16px}
-  }
-
-  /* ── Reduced Motion Accessibility ───────────────────────────────────── */
-  /* Respects the OS-level "Reduce Motion" preference (vestibular disorders,
-     epilepsy, personal preference). Disables all non-essential animations
-     and transitions while keeping the layout intact. */
-  @media(prefers-reduced-motion:reduce){
-    *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
-    html{scroll-behavior:auto}
-    /* Hero elements animate in normally — force visible */
-    .hero-tag,.hero-name,.hero-desc,.hero-cta,.hero-scroll,.status-bar{opacity:1;transform:none}
-    /* Force reveal elements visible so they don't stay hidden when transitions are killed */
-    .reveal{opacity:1;transform:none}
-  }
-
-  /* ── Touch / No-Hover Devices ───────────────────────────────────────── */
-  /* Phones and tablets don't have a hover state — tapping an element fires
-     mouseenter and mouseleave in rapid succession, which means hover styles
-     flash on and immediately stick or jitter. We kill every hover effect here.
-     @media(hover:none) catches all touch-primary devices regardless of width
-     (phone, tablet, iPad in landscape, etc.). */
-  @media(hover:none){
-    /* Restore native cursor since the custom JS cursor is hidden on touch */
-    body{cursor:auto}
-    a,button,.achievement-item,.skill-item{cursor:pointer}
-
-    /* Nav */
-    .nav-links a:hover{color:var(--text-muted);transform:none}
-    .nav-links a:hover::before{opacity:0}
-    .hamburger:hover{transform:none;opacity:1}
-    .hamburger:hover span{background:var(--text-muted)}
-    #sigCanvas:hover{filter:drop-shadow(0 0 6px rgba(224,8,156,0))}
-    #navLogo:hover{transform:none;opacity:1}
-
-    /* Project cards — no lift, no glow, no arrow, no title colour shift */
-    .project-card:hover{transform:none;box-shadow:none;border-color:var(--border)}
-    .project-card:hover::before{opacity:0}
-    .project-card:hover::after{opacity:0;transform:translateX(-6px)}
-    .project-card:hover .project-glow{opacity:0}
-    .project-card:hover .project-title{color:var(--text)}
-    .project-card:hover .tag{border-color:var(--border);color:var(--text-dim)}
-    .project-card.featured:hover{border-color:var(--magenta-dim);box-shadow:none}
-    .project-card.featured:hover .project-title{color:var(--text)}
-
-    /* Achievement rows — no slide, no accent bar */
-    .achievement-item:hover{transform:none;border-color:var(--border)}
-    .achievement-item:hover::after{transform:scaleY(0)}
-
-    /* Skill tiles */
-    .skill-item:hover{border-color:var(--border)}
-
-    /* Buttons */
-    .btn-primary:hover{transform:none;box-shadow:none}
-    .btn-primary:hover::after{transform:translateX(-100%)}
-    .btn-outline:hover{border-color:var(--border);color:var(--text-muted)}
-
-    /* Mobile menu links */
-    .mobile-menu a:hover{color:var(--text-muted)}
-    .mobile-menu a:hover::before{opacity:0}
-  }
+/* ── Responsive ──────────────────────────────────────────────────────── */
+@media(max-width:768px){
+  nav{padding:16px 20px}
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .cursor,.cursor-ring{display:none}
+  body{cursor:auto}
+  a,button{cursor:pointer}
+  .hero{padding:0 20px;min-height:100svh}
+  .hero-glow{width:300px;height:300px;left:50%;top:40%}
+  .hero-tag{font-size:10px;margin-bottom:16px}
+  .hero-desc{font-size:12px;max-width:100%;margin-bottom:36px}
+  .hero-cta{flex-direction:column;gap:12px;align-items:flex-start}
+  .btn-primary,.btn-outline{width:100%;text-align:center;padding:14px 24px}
+  .hero-scroll{left:20px;bottom:24px}
+  .status-bar{display:none}
+  section{padding:72px 20px}
+  .section-header{margin-bottom:40px}
+  .about-grid{grid-template-columns:1fr}
+  .projects-grid{grid-template-columns:1fr}
+  .project-card{padding:24px}
+  .achievement-item{grid-template-columns:1fr;gap:8px;padding:20px}
+  .achievement-badge{align-self:flex-start}
+  .skills-grid{grid-template-columns:repeat(2,1fr)}
+  .experience-timeline{padding-left:24px}
+  .exp-item::before{left:-28px}
+  .exp-desc{max-width:100%}
+  .contact-section{padding:80px 20px}
+  .contact-links{flex-direction:column;align-items:center}
+  .contact-links .btn-primary,.contact-links .btn-outline{width:100%;max-width:280px;text-align:center}
+  footer{flex-direction:column;gap:8px;padding:20px;text-align:center}
+}
+@media(max-width:480px){
+  .skills-grid{grid-template-columns:1fr}
+  .hero-name{letter-spacing:-.04em}
+  .project-tags{gap:6px}
+  .achievement-item{padding:16px}
+}
+@media(hover:none){
+  body{cursor:auto}
+  a,button,.achievement-item,.skill-item{cursor:pointer}
+  .nav-links a:hover{color:var(--text-muted);transform:none}
+  .nav-links a:hover::before{opacity:0}
+  .hamburger:hover{transform:none;opacity:1}
+  .hamburger:hover span{background:var(--text-muted)}
+  #sigCanvas:hover{filter:drop-shadow(0 0 6px rgba(224,8,156,0))}
+  #navLogo:hover{transform:none;opacity:1}
+  .project-card:hover{transform:none;box-shadow:none;border-color:var(--border)}
+  .project-card:hover::before{opacity:0}
+  .project-card:hover::after{opacity:0;transform:translateX(-6px)}
+  .project-card:hover .project-glow{opacity:0}
+  .project-card:hover .project-title{color:var(--text)}
+  .project-card:hover .tag{border-color:var(--border);color:var(--text-dim)}
+  .project-card.featured:hover{border-color:var(--magenta-dim);box-shadow:none}
+  .project-card.featured:hover .project-title{color:var(--text)}
+  .achievement-item:hover{transform:none;border-color:var(--border)}
+  .achievement-item:hover::after{transform:scaleY(0)}
+  .skill-item:hover{border-color:var(--border)}
+  .btn-primary:hover{transform:none;box-shadow:none}
+  .btn-primary:hover::after{transform:translateX(-100%)}
+  .btn-outline:hover{border-color:var(--border);color:var(--text-muted)}
+  .mobile-menu a:hover{color:var(--text-muted)}
+  .mobile-menu a:hover::before{opacity:0}
+}
 </style>
 </head>
 <body>
@@ -374,42 +270,42 @@
   <a href="#contact" class="mobile-link">Contact</a>
 </div>
 
-<main>
-<section id="hero" class="hero">
-  <div class="hero-glow"></div>
-  <div class="hero-tag">// open to opportunities</div>
-  <h1 class="hero-name">
-    Rayne<br>
-    <span class="line2">Deonarine</span>
-  </h1>
-  <p class="hero-desc">
-    Hardware-to-software builder with co-op experience at
-    <span class="hl">Publicis Toronto</span>.
-    Cisco-certified in
-    <span class="hl">JS &amp; networking</span>, bilingual in English and French, and passionate about
-    <span class="hl">embedded systems</span>.<br>
-    Grade 12 @ Western Technical-Commercial School, Toronto.
-  </p>
-  <div class="hero-cta">
-    <a href="#projects" class="btn-primary">View Projects</a>
-    <a href="#contact" class="btn-outline">Get in Touch</a>
-  </div>
-  <div class="hero-scroll">
-    <span class="hero-scroll-line"></span>
-    Scroll to explore
-  </div>
-  <div class="status-bar">
-    <div class="status-line">// <span>status</span>: grade 12 student</div>
-    <div class="status-line">// <span>location</span>: Toronto, CA</div>
-    <div class="status-line">// <span>stack</span>: JS, hardware, networks</div>
-    <div class="status-line">// <span>cert</span>: NL, swim instructor, first aid</div>
-  </div>
+<section class="hero" id="hero">
+<div class="hero-glow"></div>
+<div class="hero-tag">// open to opportunities</div>
+<h1 class="hero-name">
+Julian<br>
+<span class="line2">Deonarine</span>
+</h1>
+<p class="hero-desc">
+Developer, lifeguard, and student coder. Building things at the intersection of
+<span class="hl">code</span>,
+<span class="hl">hardware</span>, and
+<span class="hl">service</span>.<br>
+Grade 12 @ Western Technical-Commercial School, Toronto.
+</p>
+<div class="hero-cta">
+<a href="#projects" class="btn-primary">View Projects</a>
+<a href="#contact" class="btn-outline">Get in Touch</a>
+</div>
+<div class="hero-scroll">
+<span class="hero-scroll-line"></span>
+Scroll to explore
+</div>
+<div class="status-bar">
+<div class="status-line">// <span>status</span>: grade 12 student</div>
+<div class="status-line">// <span>location</span>: toronto, ca</div>
+<div class="status-line">// <span>stack</span>: js, hardware, networks</div>
+<div class="status-line">// <span>cert</span>: NL, swim instructor, first aid</div>
+</div>
 </section>
+
+<main>
 
 <section id="about">
   <div class="section-header reveal">
     <span class="section-num">00</span>
-    <h2 class="section-title">About</h2>
+    <span class="section-title">About</span>
     <div class="section-line"></div>
   </div>
   <div class="about-grid">
@@ -429,523 +325,258 @@
 </section>
 
 <section id="projects">
-  <div class="section-header reveal">
-    <span class="section-num">01</span>
-    <h2 class="section-title">Projects</h2>
-    <div class="section-line"></div>
-  </div>
-  <div class="projects-grid">
-    <a href="https://github.com/Rayne0010/chromebook-cart-security" target="_blank" rel="noopener noreferrer" class="project-card featured reveal d1">
-      <div class="project-glow"></div>
-      <div class="featured-badge"><span class="featured-dot"></span>Current Project</div>
-      <div class="project-lang">C++ &mdash; TEJ4M</div>
-      <div class="project-title">Chromebook Cart Security</div>
-      <p class="project-desc">Arduino-based school Chromebook sign-out/sign-in system. RFID room entry, 12-digit keypad input, LCD feedback, servo door lock, fingerprint admin access, and distance-sensor tamper detection. Team project with Ethan A. and Lennon F.</p>
-      <div class="project-tags">
-        <span class="tag">Arduino</span><span class="tag">RFID</span><span class="tag">FSM</span><span class="tag">C++</span>
-      </div>
-    </a>
-    <a href="https://github.com/Rayne0010/tri-mode-env-monitor" target="_blank" rel="noopener noreferrer" class="project-card reveal d2">
-      <div class="project-glow"></div>
-      <div class="project-lang">C++ &mdash; TEJ4M</div>
-      <div class="project-title">Tri-Mode Env. Monitor</div>
-      <p class="project-desc">Three independent sensor modes on one Arduino, switchable via a debounced button: ultrasonic distance alarm, photoresistor light monitor, and fingerprint-gated tilt servo. Uses non-blocking millis() timing throughout.</p>
-      <div class="project-tags">
-        <span class="tag">Arduino</span><span class="tag">Fingerprint</span><span class="tag">Servo</span><span class="tag">C++</span>
-      </div>
-    </a>
-    <a href="https://github.com/Rayne0010/mars-rover-sim" target="_blank" rel="noopener noreferrer" class="project-card reveal d3">
-      <div class="project-glow"></div>
-      <div class="project-lang">C++ &mdash; TEJ3M</div>
-      <div class="project-title">Mars Rover Simulator</div>
-      <p class="project-desc">Dual-Arduino Mars rover simulation. One board handles core rover logic (soil moisture, camera pan, light intensity, data transmission), the second drives a dedicated LCD display. Hardware-debounced power toggle and RGB status LED.</p>
-      <div class="project-tags">
-        <span class="tag">Arduino</span><span class="tag">Dual-Board</span><span class="tag">Sensors</span><span class="tag">C++</span>
-      </div>
-    </a>
-    <a href="https://github.com/Rayne0010/DollaSense" target="_blank" rel="noopener noreferrer" class="project-card reveal d4">
-      <div class="project-glow"></div>
-      <div class="project-lang">Java &mdash; ICS3U</div>
-      <div class="project-title">DollaSense</div>
-      <p class="project-desc">Java console budget tracker supporting four user profiles (solo adult, family, unemployed, working teen). Tracks spending, compares against previous sessions, displays a JFreeChart pie chart, and exports a PNG + text report to Downloads.</p>
-      <div class="project-tags">
-        <span class="tag">Java</span><span class="tag">JFreeChart</span><span class="tag">Finance</span>
-      </div>
-    </a>
-    <a href="https://github.com/Rayne0010/hangman" target="_blank" rel="noopener noreferrer" class="project-card reveal d1">
-      <div class="project-glow"></div>
-      <div class="project-lang">Java &mdash; ICS3U</div>
-      <div class="project-title">Hangman</div>
-      <p class="project-desc">Command-line Hangman in Java with random word selection, input validation, repeat-guess detection, and a 6-attempt limit. Clean console interface with live wrong-guess tracking.</p>
-      <div class="project-tags">
-        <span class="tag">Java</span><span class="tag">CLI</span><span class="tag">Game</span>
-      </div>
-    </a>
-    <a href="https://github.com/Rayne0010/PortfolioWebsite" target="_blank" rel="noopener noreferrer" class="project-card reveal d2">
-      <div class="project-glow"></div>
-      <div class="project-lang">HTML / CSS / JS &mdash; Personal</div>
-      <div class="project-title">This Portfolio</div>
-      <p class="project-desc">Single-file portfolio site built from scratch. Features a canvas-drawn animated signature, custom dual-ring cursor, scroll-reveal animations, IntersectionObserver skill triggers, email obfuscation, and a fully responsive mobile layout.</p>
-      <div class="project-tags">
-        <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span><span class="tag">Canvas</span>
-      </div>
-    </a>
-  </div>
+<div class="section-header reveal">
+<span class="section-num">01</span>
+<span class="section-title">Projects</span>
+<div class="section-line"></div>
+</div>
+<div class="projects-grid">
+<a href="https://github.com/Rayne0010/chromebook-cart-security" target="_blank" rel="noopener noreferrer" class="project-card featured reveal d1">
+<div class="featured-badge"><span class="featured-dot"></span>Featured</div>
+<div class="project-glow"></div>
+<div class="project-lang">C++ &mdash; TEJ4M</div>
+<div class="project-title">Chromebook Cart Security</div>
+<p class="project-desc">Arduino-based school Chromebook sign-out/sign-in system. RFID room entry, 12-digit keypad input, LCD feedback, servo door lock, fingerprint admin access, and distance-sensor tamper detection. Team project with Ethan A. and Lennon F.</p>
+<div class="project-tags">
+<span class="tag">Arduino</span><span class="tag">RFID</span><span class="tag">FSM</span><span class="tag">C++</span>
+</div>
+</a>
+<a href="https://github.com/Rayne0010/tri-mode-env-monitor" target="_blank" rel="noopener noreferrer" class="project-card reveal d2">
+<div class="project-glow"></div>
+<div class="project-lang">C++ &mdash; TEJ4M</div>
+<div class="project-title">Tri-Mode Env. Monitor</div>
+<p class="project-desc">Three independent sensor modes on one Arduino, switchable via a debounced button: ultrasonic distance alarm, photoresistor light monitor, and fingerprint-gated tilt servo. Uses non-blocking millis() timing throughout.</p>
+<div class="project-tags">
+<span class="tag">Arduino</span><span class="tag">Fingerprint</span><span class="tag">Servo</span><span class="tag">C++</span>
+</div>
+</a>
+<a href="https://github.com/Rayne0010/mars-rover-sim" target="_blank" rel="noopener noreferrer" class="project-card reveal d3">
+<div class="project-glow"></div>
+<div class="project-lang">C++ &mdash; TEJ3M</div>
+<div class="project-title">Mars Rover Simulator</div>
+<p class="project-desc">Dual-Arduino Mars rover simulation. One board handles core rover logic (soil moisture, camera pan, light intensity, data transmission), the second drives a dedicated LCD display. Hardware-debounced power toggle and RGB status LED.</p>
+<div class="project-tags">
+<span class="tag">Arduino</span><span class="tag">Dual-Board</span><span class="tag">Sensors</span><span class="tag">C++</span>
+</div>
+</a>
+<a href="https://github.com/Rayne0010/DollaSense" target="_blank" rel="noopener noreferrer" class="project-card reveal d4">
+<div class="project-glow"></div>
+<div class="project-lang">Java &mdash; ICS3U</div>
+<div class="project-title">DollaSense</div>
+<p class="project-desc">Java console budget tracker supporting four user profiles (solo adult, family, unemployed, working teen). Tracks spending, compares against previous sessions, displays a JFreeChart pie chart, and exports a PNG + text report to Downloads.</p>
+<div class="project-tags">
+<span class="tag">Java</span><span class="tag">JFreeChart</span><span class="tag">Finance</span>
+</div>
+</a>
+<a href="https://github.com/Rayne0010/hangman" target="_blank" rel="noopener noreferrer" class="project-card reveal d1">
+<div class="project-glow"></div>
+<div class="project-lang">Java &mdash; ICS3U</div>
+<div class="project-title">Hangman</div>
+<p class="project-desc">Command-line Hangman in Java with random word selection, input validation, repeat-guess detection, and a 6-attempt limit. Clean console interface with live wrong-guess tracking.</p>
+<div class="project-tags">
+<span class="tag">Java</span><span class="tag">CLI</span><span class="tag">Game</span>
+</div>
+</a>
+<a href="https://github.com/Rayne0010/PortfolioWebsite" target="_blank" rel="noopener noreferrer" class="project-card reveal d2">
+<div class="project-glow"></div>
+<div class="project-lang">HTML / CSS / JS &mdash; Personal</div>
+<div class="project-title">This Portfolio</div>
+<p class="project-desc">Single-file portfolio site built from scratch. Features a canvas-drawn animated signature, custom dual-ring cursor, scroll-reveal animations, IntersectionObserver skill triggers, email obfuscation, and a fully responsive mobile layout.</p>
+<div class="project-tags">
+<span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span><span class="tag">Canvas</span>
+</div>
+</a>
+</div>
 </section>
 
 <section id="achievements">
-  <div class="section-header reveal">
-    <span class="section-num">02</span>
-    <h2 class="section-title">Awards &amp; Certifications</h2>
-    <div class="section-line"></div>
-  </div>
-  <div class="achievements-list">
-    <div class="achievement-item reveal d1">
-      <div class="achievement-year">2024</div>
-      <div><div class="achievement-name">National Lifeguard Certification</div><div class="achievement-sub">Lifesaving Society &mdash; August 2024</div></div>
-      <span class="achievement-badge badge-cyan">Certification</span>
-    </div>
-    <div class="achievement-item reveal d2">
-      <div class="achievement-year">2024</div>
-      <div><div class="achievement-name">Swim &amp; Lifesaving Instructor</div><div class="achievement-sub">Swim Instructor + Lifesaving Instructor + Emergency First Aid Instructor &mdash; March 2024</div></div>
-      <span class="achievement-badge badge-cyan">Certification</span>
-    </div>
-    <div class="achievement-item reveal d2">
-      <div class="achievement-year">2024</div>
-      <div><div class="achievement-name">Standard First Aid with CPR-C</div><div class="achievement-sub">Lifesaving Society &mdash; November 2024</div></div>
-      <span class="achievement-badge badge-cyan">Certification</span>
-    </div>
-    <div class="achievement-item reveal d3">
-      <div class="achievement-year">2024</div>
-      <div><div class="achievement-name">Cisco JS Essentials 1 &amp; 2</div><div class="achievement-sub">Cisco Networking Academy &mdash; JavaScript Programming</div></div>
-      <span class="achievement-badge badge-magenta">Certification</span>
-    </div>
-    <div class="achievement-item reveal d4">
-      <div class="achievement-year">2024</div>
-      <div><div class="achievement-name">Royal Conservatory Piano &mdash; Level 7</div><div class="achievement-sub">RCM Advanced Piano Certification</div></div>
-      <span class="achievement-badge badge-gold">Arts</span>
-    </div>
-    <div class="achievement-item reveal d1">
-      <div class="achievement-year">2024</div>
-      <div><div class="achievement-name">CANSail 1</div><div class="achievement-sub">Toronto Sailing and Canoe Club</div></div>
-      <span class="achievement-badge badge-gold">Sport</span>
-    </div>
-    <div class="achievement-item reveal d3">
-      <div class="achievement-year">2023</div>
-      <div><div class="achievement-name">Bronze Cross Certification</div><div class="achievement-sub">Lifesaving Society &mdash; January 2023</div></div>
-      <span class="achievement-badge badge-silver">Certification</span>
-    </div>
-    <div class="achievement-item reveal d4">
-      <div class="achievement-year">2021</div>
-      <div><div class="achievement-name">Bronze Medallion Certification</div><div class="achievement-sub">Lifesaving Society &mdash; March 2021</div></div>
-      <span class="achievement-badge badge-silver">Certification</span>
-    </div>
-    <div class="achievement-item reveal d4">
-      <div class="achievement-year">2019</div>
-      <div><div class="achievement-name">Bronze Star Certification</div><div class="achievement-sub">Lifesaving Society &mdash; March 2019</div></div>
-      <span class="achievement-badge badge-silver">Certification</span>
-    </div>
-  </div>
+<div class="section-header reveal">
+<span class="section-num">02</span>
+<span class="section-title">Awards &amp; Certifications</span>
+<div class="section-line"></div>
+</div>
+<div class="achievements-list">
+<div class="achievement-item reveal d1">
+<div class="achievement-year">2024</div>
+<div><div class="achievement-name">National Lifeguard Certification</div><div class="achievement-sub">Lifesaving Society &mdash; August 2024</div></div>
+<span class="achievement-badge badge-cyan">Certification</span>
+</div>
+<div class="achievement-item reveal d2">
+<div class="achievement-year">2024</div>
+<div><div class="achievement-name">Swim &amp; Lifesaving Instructor</div><div class="achievement-sub">Swim Instructor + Lifesaving Instructor + Emergency First Aid Instructor &mdash; March 2024</div></div>
+<span class="achievement-badge badge-cyan">Certification</span>
+</div>
+<div class="achievement-item reveal d2">
+<div class="achievement-year">2024</div>
+<div><div class="achievement-name">Standard First Aid with CPR-C</div><div class="achievement-sub">Lifesaving Society &mdash; November 2024</div></div>
+<span class="achievement-badge badge-cyan">Certification</span>
+</div>
+<div class="achievement-item reveal d3">
+<div class="achievement-year">2024</div>
+<div><div class="achievement-name">Royal Conservatory Piano &mdash; Level 7</div><div class="achievement-sub">RCM Advanced Piano Certification</div></div>
+<span class="achievement-badge badge-gold">Arts</span>
+</div>
+<div class="achievement-item reveal d3">
+<div class="achievement-year">2023</div>
+<div><div class="achievement-name">Bronze Cross Certification</div><div class="achievement-sub">Lifesaving Society &mdash; January 2023</div></div>
+<span class="achievement-badge badge-silver">Certification</span>
+</div>
+<div class="achievement-item reveal d4">
+<div class="achievement-year">2021</div>
+<div><div class="achievement-name">Bronze Medallion Certification</div><div class="achievement-sub">Lifesaving Society &mdash; March 2021</div></div>
+<span class="achievement-badge badge-silver">Certification</span>
+</div>
+<div class="achievement-item reveal d4">
+<div class="achievement-year">2019</div>
+<div><div class="achievement-name">Bronze Star Certification</div><div class="achievement-sub">Lifesaving Society &mdash; March 2019</div></div>
+<span class="achievement-badge badge-silver">Certification</span>
+</div>
+</div>
 </section>
 
 <section id="skills">
-  <div class="section-header reveal">
-    <span class="section-num">03</span>
-    <h2 class="section-title">Skills</h2>
-    <div class="section-line"></div>
-  </div>
-  <div class="skills-grid">
-    <div class="skill-item reveal d1"><div class="skill-name">JavaScript</div><div class="skill-level">Cisco JS Essentials 1 &amp; 2</div></div>
-    <div class="skill-item reveal d2"><div class="skill-name">IT Support &amp; Networking</div><div class="skill-level">Co-op @ Publicis</div></div>
-    <div class="skill-item reveal d3"><div class="skill-name">Hardware &amp; Systems</div><div class="skill-level">3 Arduino Projects</div></div>
-    <div class="skill-item reveal d4"><div class="skill-name">Bilingual (EN / FR)</div><div class="skill-level">French Immersion</div></div>
-    <div class="skill-item reveal d1"><div class="skill-name">Lifeguarding &amp; First Aid</div><div class="skill-level">NL + CPR-C Certified</div></div>
-    <div class="skill-item reveal d2"><div class="skill-name">Piano</div><div class="skill-level">RCM Level 7</div></div>
-    <div class="skill-item reveal d3"><div class="skill-name">Customer Service</div><div class="skill-level">Multi-role Experience</div></div>
-  </div>
+<div class="section-header reveal">
+<span class="section-num">03</span>
+<span class="section-title">Skills</span>
+<div class="section-line"></div>
+</div>
+<div class="skills-grid">
+<div class="skill-item reveal d1" data-lvl="0.72"><div class="skill-name">JavaScript</div><div class="skill-bar-bg"><div class="skill-bar-fill"></div></div><div class="skill-level">CISCO Certified</div></div>
+<div class="skill-item reveal d2" data-lvl="0.78"><div class="skill-name">IT Support &amp; Networking</div><div class="skill-bar-bg"><div class="skill-bar-fill"></div></div><div class="skill-level">Co-op Experience</div></div>
+<div class="skill-item reveal d3" data-lvl="0.85"><div class="skill-name">Hardware &amp; Systems</div><div class="skill-bar-bg"><div class="skill-bar-fill"></div></div><div class="skill-level">Multiple Arduino Projects</div></div>
+<div class="skill-item reveal d4" data-lvl="0.80"><div class="skill-name">Bilingual (EN / FR)</div><div class="skill-bar-bg"><div class="skill-bar-fill"></div></div><div class="skill-level">French Immersion</div></div>
+<div class="skill-item reveal d1" data-lvl="1.00"><div class="skill-name">Lifeguarding &amp; First Aid</div><div class="skill-bar-bg"><div class="skill-bar-fill"></div></div><div class="skill-level">NL + CPR-C Certified</div></div>
+<div class="skill-item reveal d2" data-lvl="0.82"><div class="skill-name">Piano</div><div class="skill-bar-bg"><div class="skill-bar-fill"></div></div><div class="skill-level">RCM Level 7</div></div>
+<div class="skill-item reveal d3" data-lvl="0.88"><div class="skill-name">Customer Service</div><div class="skill-bar-bg"><div class="skill-bar-fill"></div></div><div class="skill-level">Multi-role Experience</div></div>
+</div>
 </section>
 
 <section id="experience">
-  <div class="section-header reveal">
-    <span class="section-num">04</span>
-    <h2 class="section-title">Experience</h2>
-    <div class="section-line"></div>
-  </div>
-  <div class="experience-timeline">
-    <div class="exp-item reveal d1">
-      <div class="exp-period">Sept 2024 &rarr; Jan 2025</div>
-      <div class="exp-title">Electronic Service Technician (Co-op)</div>
-      <div class="exp-org">Publicis Toronto &mdash; Toronto, ON</div>
-      <p class="exp-desc">Technical support, hardware and software installations, server maintenance, system imaging, network support, and end-user training. Collaborated bilingually in English and French in a fast-paced professional environment.</p>
-    </div>
-    <div class="exp-item reveal d2">
-      <div class="exp-period">Summer 2023 &amp; 2024</div>
-      <div class="exp-title">Wading Pool Attendant</div>
-      <div class="exp-org">City of Toronto &mdash; Toronto, ON</div>
-      <p class="exp-desc">Monitored pool safety, administered first aid and CPR when required, maintained a clean environment, and delivered excellent customer service. Coordinated daily activities with coworkers to keep operations running smoothly.</p>
-    </div>
-    <div class="exp-item reveal d3">
-      <div class="exp-period">2022</div>
-      <div class="exp-title">Volunteer</div>
-      <div class="exp-org">APS Daycare &mdash; Toronto, ON</div>
-      <p class="exp-desc">Supervised children in a safe environment, assisted with daily tasks, and developed bilingual communication skills through direct interaction with children and staff.</p>
-    </div>
-    <div class="exp-item reveal d4">
-      <div class="exp-period">Ongoing</div>
-      <div class="exp-title">Certified Babysitter</div>
-      <div class="exp-org">Independent &mdash; Toronto, ON</div>
-      <p class="exp-desc">Certified caregiver providing safety supervision and educational activities. Holds Baby-Sitter Course and Home Alone Safety certifications from Swansea Town Hall.</p>
-    </div>
-  </div>
+<div class="section-header reveal">
+<span class="section-num">04</span>
+<span class="section-title">Experience</span>
+<div class="section-line"></div>
+</div>
+<div class="experience-timeline">
+<div class="exp-item reveal d1">
+<div class="exp-period">Sept 2024 &rarr; Jan 2025</div>
+<div class="exp-title">Electronic Service Technician (Co-op)</div>
+<div class="exp-org">Publicis Toronto &mdash; Toronto, ON</div>
+<p class="exp-desc">Technical support, hardware and software installations, server maintenance, system imaging, network support, and end-user training. Collaborated bilingually in English and French in a fast-paced professional environment.</p>
+</div>
+<div class="exp-item reveal d2">
+<div class="exp-period">Summer 2023 &amp; 2024</div>
+<div class="exp-title">Wading Pool Attendant</div>
+<div class="exp-org">City of Toronto &mdash; Toronto, ON</div>
+<p class="exp-desc">Monitored pool safety, administered first aid and CPR when required, maintained a clean environment, and delivered excellent customer service. Coordinated daily activities with coworkers to keep operations running smoothly.</p>
+</div>
+<div class="exp-item reveal d3">
+<div class="exp-period">2022</div>
+<div class="exp-title">Volunteer</div>
+<div class="exp-org">APS Daycare &mdash; Toronto, ON</div>
+<p class="exp-desc">Supervised children in a safe environment, assisted with daily tasks, and developed bilingual communication skills through direct interaction with children and staff.</p>
+</div>
+<div class="exp-item reveal d4">
+<div class="exp-period">Ongoing</div>
+<div class="exp-title">Certified Babysitter</div>
+<div class="exp-org">Independent &mdash; Toronto, ON</div>
+<p class="exp-desc">Certified caregiver providing safety supervision and educational activities. Holds Baby-Sitter Course and Home Alone Safety certifications from Swansea Town Hall.</p>
+</div>
+</div>
 </section>
 
 <section id="contact" class="contact-section">
-  <div class="contact-pre reveal">// let's build something</div>
-  <h2 class="contact-heading reveal d1">Get In<br><span class="hollow">Touch.</span></h2>
-  <p class="contact-sub reveal d2">Open to collaborations, projects, and conversations.<span class="blink">_</span></p>
-  <div class="contact-links reveal d3">
-    <a href="#" id="emailBtn" class="btn-primary">Send Email</a>
-    <a href="https://www.linkedin.com/in/julian-deonarine-56851a310/" target="_blank" rel="noopener noreferrer" class="btn-outline">LinkedIn</a>
-    <a href="https://github.com/Rayne0010" target="_blank" rel="noopener noreferrer" class="btn-outline">GitHub</a>
-  </div>
+<div class="contact-pre reveal">// let's build something</div>
+<h2 class="contact-heading reveal d1">Get In<br><span class="hollow">Touch.</span></h2>
+<p class="contact-sub reveal d2">Open to collaborations, projects, and conversations.<span class="blink">_</span></p>
+<div class="contact-links reveal d3">
+<button id="emailBtn" class="btn-primary">Send Email</button>
+<a href="https://github.com/Rayne0010" target="_blank" rel="noopener noreferrer" class="btn-outline">GitHub</a>
+</div>
 </section>
 
 </main>
+
 <footer>
-  <span>// rayne deonarine &copy; 2026</span>
-  <span>built with intention &mdash; Toronto, CA</span>
+<span>// julian deonarine &copy; 2025</span>
+<span>built with intention &mdash; toronto, ca</span>
 </footer>
 
 <script>
-/* ════════════════════════════════════════════════════════════════════════
-   Portfolio — Main Script
-   Sections:
-     1. Custom Dual-Ring Cursor
-     2. Nav Logo Hover (replaces removed inline handlers)
-     3. Scroll Reveal via IntersectionObserver
-     4. Email Obfuscation
-     5. Hamburger / Mobile Menu
-     6. Animated RD Signature (Canvas)
-   ════════════════════════════════════════════════════════════════════════ */
 (function(){
 
-  /* ── 1. Custom Dual-Ring Cursor ──────────────────────────────────────── */
-  /* Skip entirely on touch devices — cursor elements are display:none there
-     anyway, but the RAF loop would still run forever burning CPU. */
-  var isTouch = window.matchMedia('(hover:none)').matches;
-  if (!isTouch) {
-    var c = document.getElementById('cursor');   // inner dot — snaps instantly
-    var r = document.getElementById('cring');    // outer ring — lags via lerp
-    var mx = 0, my = 0;   // actual mouse position
-    var rx = 0, ry = 0;   // ring's smoothed position
-    var cursorVisible = false;
+/* ── 1. Cursor ──────────────────────────────────────────────────────── */
+var c=document.getElementById('cursor'),r=document.getElementById('cring');
+var mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;c.style.left=mx+'px';c.style.top=my+'px';});
+(function loop(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;r.style.left=rx+'px';r.style.top=ry+'px';requestAnimationFrame(loop);})();
+document.querySelectorAll('a,button,.project-card,.achievement-item,.skill-item').forEach(function(el){
+  el.addEventListener('mouseenter',function(){c.style.width='20px';c.style.height='20px';r.style.width='60px';r.style.height='60px';r.style.opacity='0.8';});
+  el.addEventListener('mouseleave',function(){c.style.width='12px';c.style.height='12px';r.style.width='36px';r.style.height='36px';r.style.opacity='0.5';});
+});
 
-    /* On first move: position both elements before revealing them,
-       so they never snap in from (0,0) */
-    document.addEventListener('mousemove', function(e) {
-      mx = e.clientX; my = e.clientY;
-      c.style.left = mx + 'px';
-      c.style.top  = my + 'px';
-      if (!cursorVisible) {
-        cursorVisible = true;
-        rx = mx; ry = my;  // snap ring to current position instantly
-        c.style.opacity = '1';
-        r.style.opacity = '0.5';
-      }
-    });
+/* ── 2. Scroll Reveal ───────────────────────────────────────────────── */
+var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
 
-    /* Ring chases the mouse at 12% per frame — creates the trailing lag */
-    (function loop() {
-      rx += (mx - rx) * .12;
-      ry += (my - ry) * .12;
-      r.style.left = rx + 'px';
-      r.style.top  = ry + 'px';
-      requestAnimationFrame(loop);
-    })();
-
-    /* Expand both rings on hover over interactive elements */
-    document.querySelectorAll('a,button,.project-card,.achievement-item,.skill-item').forEach(function(el) {
-      el.addEventListener('mouseenter', function() {
-        c.style.width = '20px'; c.style.height = '20px';
-        r.style.width = '60px'; r.style.height = '60px';
-        r.style.opacity = '0.8';
-      });
-      el.addEventListener('mouseleave', function() {
-        c.style.width = '12px'; c.style.height = '12px';
-        r.style.width = '36px'; r.style.height = '36px';
-        r.style.opacity = '0.5';  // restore to resting opacity, not 0
-      });
-    });
+/* ── 3. Skill Bars ──────────────────────────────────────────────────── */
+var so=new IntersectionObserver(function(entries){entries.forEach(function(e){
+  if(e.isIntersecting){
+    var lvl=parseFloat(e.target.getAttribute('data-lvl')||'0.5');
+    var bar=e.target.querySelector('.skill-bar-fill');
+    if(bar)setTimeout(function(){bar.style.transform='scaleX('+lvl+')';},150);
+    so.unobserve(e.target);
   }
+});},{threshold:.4});
+document.querySelectorAll('.skill-item').forEach(function(el){so.observe(el);});
 
-  /* ── 2. Nav Logo Hover ───────────────────────────────────────────────── */
-  /* CSS #navLogo:hover handles the scale/fade effect.
-     No JS needed here — removed redundant mouseenter/mouseleave handlers
-     that were duplicating the CSS rule and incorrectly firing on mobile taps. */
+/* ── 4. Email Obfuscation ───────────────────────────────────────────── */
+(function(){
+  var u='raynedeonarine',d='gmail.com';
+  var btn=document.getElementById('emailBtn');
+  if(btn){btn.addEventListener('click',function(e){e.preventDefault();window.open('https://mail.google.com/mail/?view=cm&to='+u+'@'+d,'_blank','noopener,noreferrer');});}
+})();
 
-  /* ── 3. Scroll Reveal ────────────────────────────────────────────────── */
-  /* Each .reveal element starts invisible (opacity:0, translateY(30px)).
-     IntersectionObserver adds .visible when the element enters the viewport,
-     triggering the CSS transition. threshold:0.1 fires at 10% visibility. */
-  var io = new IntersectionObserver(function(entries) {
-    entries.forEach(function(e) {
-      if (e.isIntersecting) e.target.classList.add('visible');
-    });
-  }, { threshold: .1 });
-  document.querySelectorAll('.reveal').forEach(function(el) { io.observe(el); });
+/* ── 5. Hamburger ───────────────────────────────────────────────────── */
+var hbtn=document.getElementById('hamburger'),mmenu=document.getElementById('mobileMenu');
+if(hbtn&&mmenu){
+  function closeMenu(){hbtn.classList.remove('open');mmenu.classList.remove('open');document.body.style.overflow='';}
+  hbtn.addEventListener('click',function(){var open=hbtn.classList.toggle('open');mmenu.classList.toggle('open',open);document.body.style.overflow=open?'hidden':'';});
+  mmenu.querySelectorAll('.mobile-link').forEach(function(a){a.addEventListener('click',closeMenu);});
+  mmenu.addEventListener('click',function(e){if(e.target===mmenu)closeMenu();});
+}
 
-  /* ── 4. Email Obfuscation ────────────────────────────────────────────── */
-  /* Email is never written in static HTML so scrapers can't harvest it.
-     Parts are assembled at runtime and only wired up on click. */
-  (function() {
-    var u   = 'raynedeonarine';
-    var d   = 'gmail.com';
-    var btn = document.getElementById('emailBtn');
-    if (btn) {
-      btn.addEventListener('click', function(e) {
-        e.preventDefault();
-        window.open('https://mail.google.com/mail/?view=cm&to=' + u + '@' + d, '_blank', 'noopener,noreferrer');
-      });
-    }
-  })();
-
-  /* ── 5. Hamburger / Mobile Menu ──────────────────────────────────────── */
-  var hbtn  = document.getElementById('hamburger');
-  var mmenu = document.getElementById('mobileMenu');
-  if (hbtn && mmenu) {
-    /* Shared close helper — used by button click, link click, and backdrop click */
-    function closeMenu() {
-      hbtn.classList.remove('open');
-      mmenu.classList.remove('open');
-      document.body.style.overflow = '';
-    }
-    /* Toggle on hamburger click; lock scroll while menu is open */
-    hbtn.addEventListener('click', function() {
-      var open = hbtn.classList.toggle('open');
-      mmenu.classList.toggle('open', open);
-      document.body.style.overflow = open ? 'hidden' : '';
-    });
-    /* Close when a nav link is tapped */
-    mmenu.querySelectorAll('.mobile-link').forEach(function(a) {
-      a.addEventListener('click', closeMenu);
-    });
-    /* Close when tapping the backdrop (outside the link list) */
-    mmenu.addEventListener('click', function(e) {
-      if (e.target === mmenu) closeMenu();
-    });
+/* ── 6. Signature Canvas ────────────────────────────────────────────── */
+(function(){
+  var CW=158,CH=72;
+  var PURPLE=getComputedStyle(document.documentElement).getPropertyValue('--purple').trim();
+  var strokes=[
+    {cmds:[['M',44,8],['C',42,9,39,11,36,14]],w:function(t){return 0.7+t*1.7;}},
+    {cmds:[['M',36,14],['C',37,27,38,43,36,57]],w:function(t){if(t<0.16)return 1.4+t/0.16*3.8;if(t>0.78)return 5.2-(t-0.78)/0.22*3.0;return 5.2;}},
+    {cmds:[['M',36,14],['C',44,6,60,8,63,20],['C',66,30,58,36,46,38]],w:function(t){if(t<0.40)return 1.0+t/0.40*2.2;return 3.2-(t-0.40)/0.60*2.0;}},
+    {cmds:[['M',46,38],['C',54,44,62,50,65,46],['C',68,42,68,28,66,14]],w:function(t){if(t<0.12)return 1.8+t/0.12*0.8;if(t>0.70)return 2.6-(t-0.70)/0.30*1.6;return 2.6;}},
+    {cmds:[['M',66,14],['C',67,28,66,44,64,56]],w:function(t){if(t<0.16)return 1.4+t/0.16*3.8;if(t>0.78)return 5.2-(t-0.78)/0.22*3.0;return 5.2;}},
+    {cmds:[['M',66,14],['C',80,7,108,16,116,34],['C',121,47,112,60,92,64],['C',79,67,66,62,64,56]],w:function(t){if(t<0.14)return 1.1+t/0.14*2.0;if(t>0.75)return 3.6-(t-0.75)/0.25*2.8;var mid=Math.abs(t-0.43)/0.33;return 3.6+Math.max(0,1-mid*mid)*1.0;}},
+    {cmds:[['M',64,56],['C',76,63,96,65,112,61],['C',126,57,138,49,146,39],['C',150,33,153,26,152,20]],w:function(t){if(t<0.10)return 2.2+t/0.10*0.5;return 2.7*Math.pow(1-t,1.4)+0.2;}}
+  ];
+  function sampleCmds(cmds,n){var pts=[],cx=0,cy=0;for(var i=0;i<cmds.length;i++){var cmd=cmds[i];if(cmd[0]==='M'){cx=cmd[1];cy=cmd[2];pts.push([cx,cy]);}else if(cmd[0]==='C'){var p1x=cmd[1],p1y=cmd[2],p2x=cmd[3],p2y=cmd[4],tx=cmd[5],ty=cmd[6];for(var j=1;j<=n;j++){var t=j/n,m=1-t;pts.push([m*m*m*cx+3*m*m*t*p1x+3*m*t*t*p2x+t*t*t*tx,m*m*m*cy+3*m*m*t*p1y+3*m*t*t*p2y+t*t*t*ty]);}cx=tx;cy=ty;}}return pts;}
+  function cumArcs(pts){var a=[0];for(var i=1;i<pts.length;i++){var dx=pts[i][0]-pts[i-1][0],dy=pts[i][1]-pts[i-1][1];a.push(a[i-1]+Math.sqrt(dx*dx+dy*dy));}return a;}
+  var N=120,proc=strokes.map(function(s){var pts=sampleCmds(s.cmds,N),a=cumArcs(pts);return{pts:pts,arcs:a,total:a[a.length-1],w:s.w};});
+  var grand=proc.reduce(function(s,p){return s+p.total;},0);
+  function initSig(){
+    var cv=document.getElementById('sigCanvas');if(!cv)return;
+    var dpr=window.devicePixelRatio||1;cv.width=CW*dpr;cv.height=CH*dpr;cv.style.width=CW+'px';cv.style.height=CH+'px';
+    var ctx=cv.getContext('2d');ctx.scale(dpr,dpr);ctx.strokeStyle=PURPLE;ctx.lineCap='round';ctx.lineJoin='round';
+    var DUR=2000,DELAY=450,t0=null;
+    function ease(t){return t<.5?2*t*t:-1+(4-2*t)*t;}
+    function frame(ts){if(!t0)t0=ts;var raw=Math.min((ts-t0)/DUR,1);var head=ease(raw)*grand;ctx.clearRect(0,0,CW,CH);var rem=head;for(var si=0;si<proc.length;si++){if(rem<=0)break;var s=proc[si];var draw=Math.min(rem,s.total);rem-=s.total;for(var i=1;i<s.pts.length;i++){if(s.arcs[i]>draw)break;ctx.lineWidth=s.w(s.arcs[i]/s.total);ctx.beginPath();ctx.moveTo(s.pts[i-1][0],s.pts[i-1][1]);ctx.lineTo(s.pts[i][0],s.pts[i][1]);ctx.stroke();}}if(raw<1)requestAnimationFrame(frame);}
+    setTimeout(function(){requestAnimationFrame(frame);},DELAY);
   }
-
-  /* ── 6. Animated RD Signature (Canvas) ──────────────────────────────── */
-  /*
-   * Hand-crafted cursive "RD" drawn segment-by-segment on a canvas.
-   *
-   * Approach:
-   *   - Each stroke is defined as a series of SVG-style path commands
-   *     (M = moveto, C = cubic bezier, L = lineto, Q = quadratic bezier).
-   *   - A variable-width function w(t) controls stroke thickness at each
-   *     point along the stroke (t=0 is start, t=1 is end), mimicking the
-   *     natural pressure variation of a real pen.
-   *   - sampleCmds() flattens all curves into N evenly-spaced polyline
-   *     points, and cumArcs() builds an arc-length lookup table so we can
-   *     animate at constant visual speed regardless of curve complexity.
-   *   - The draw loop uses an ease-in-out function and a "head" pointer
-   *     that advances through total arc length, drawing each segment as
-   *     individual 1-segment ctx.stroke() calls so lineWidth can change
-   *     continuously per-segment.
-   *
-   * Layout: canvas 158×72px, ~15° italic lean.
-   *   R: x 8–62,  stem top y≈10, descends to y≈58
-   *   D: x 66–120, stem shares entry point from R leg
-   *   Flourish: x 120–155, drifts up and right vanishing
-   *
-   * Key: NO separate ligature stroke. The R leg sweeps right-and-upward,
-   * landing exactly at the D's stem top (66,14) — pen never lifts.
-   */
-  (function() {
-    var CW = 158, CH = 72;
-    /* Read from CSS token so JS and CSS always use the same value */
-    var PURPLE = getComputedStyle(document.documentElement).getPropertyValue('--purple').trim();
-
-    /* Stroke definitions — cmds follow SVG path syntax, w(t) = width at t */
-    var strokes = [
-
-      /* 1. R — entry hairline flick at top */
-      { cmds: [['M',44,8],['C',42,9,39,11,36,14]],
-        w: function(t){ return 0.7 + t*1.7; } },
-
-      /* 2. R — thick italic downstroke, full height */
-      { cmds: [['M',36,14],['C',37,27,38,43,36,57]],
-        w: function(t){
-          if(t < 0.16) return 1.4 + t/0.16*3.8;
-          if(t > 0.78) return 5.2 - (t-0.78)/0.22*3.0;
-          return 5.2;
-        }},
-
-      /* 3. R — hump: arcs right from near stem top, bows wide, returns */
-      { cmds: [['M',36,14],['C',44,6,60,8,63,20],['C',66,30,58,36,46,38]],
-        w: function(t){
-          /* thin leaving, swells at the apex, thins returning */
-          if(t < 0.40) return 1.0 + t/0.40*2.2;
-          return 3.2 - (t-0.40)/0.60*2.0;
-        }},
-
-      /* 4. R leg — from hump landing, kicks right-downward then sweeps
-            back up, flowing directly into D stem top at (66,14).
-            This is the key connective stroke — no pen lift. */
-      { cmds: [['M',46,38],['C',54,44,62,50,65,46],['C',68,42,68,28,66,14]],
-        w: function(t){
-          if(t < 0.12) return 1.8 + t/0.12*0.8;
-          if(t > 0.70) return 2.6 - (t-0.70)/0.30*1.6;
-          return 2.6;
-        }},
-
-      /* 5. D — thick italic downstroke */
-      { cmds: [['M',66,14],['C',67,28,66,44,64,56]],
-        w: function(t){
-          if(t < 0.16) return 1.4 + t/0.16*3.8;
-          if(t > 0.78) return 5.2 - (t-0.78)/0.22*3.0;
-          return 5.2;
-        }},
-
-      /* 6. D — generous belly, closes at stem bottom */
-      { cmds: [['M',66,14],['C',80,7,108,16,116,34],['C',121,47,112,60,92,64],['C',79,67,66,62,64,56]],
-        w: function(t){
-          if(t < 0.14) return 1.1 + t/0.14*2.0;
-          if(t > 0.75) return 3.6 - (t-0.75)/0.25*2.8;
-          var mid = Math.abs(t-0.43)/0.33;
-          return 3.6 + Math.max(0, 1-mid*mid)*1.0;
-        }},
-
-      /* 7. Exit flourish — flows from D close, dips then sweeps up vanishing */
-      { cmds: [['M',64,56],['C',76,63,96,65,112,61],['C',126,57,138,49,146,39],['C',150,33,153,26,152,20]],
-        w: function(t){
-          if(t < 0.10) return 2.2 + t/0.10*0.5;
-          return 2.7 * Math.pow(1-t, 1.4) + 0.2;
-        }}
-    ];
-
-    /* Flatten path commands into N evenly-spaced polyline points */
-    function sampleCmds(cmds, n) {
-      var pts = [], cx = 0, cy = 0;
-      for (var i = 0; i < cmds.length; i++) {
-        var cmd = cmds[i];
-        if (cmd[0] === 'M') {
-          cx = cmd[1]; cy = cmd[2];
-          pts.push([cx, cy]);
-        } else if (cmd[0] === 'L') {
-          for (var j = 1; j <= n; j++) {
-            var t = j/n;
-            pts.push([cx + (cmd[1]-cx)*t, cy + (cmd[2]-cy)*t]);
-          }
-          cx = cmd[1]; cy = cmd[2];
-        } else if (cmd[0] === 'Q') {
-          var cpx = cmd[1], cpy = cmd[2], tx = cmd[3], ty = cmd[4];
-          for (var j = 1; j <= n; j++) {
-            var t = j/n, m = 1-t;
-            pts.push([m*m*cx + 2*m*t*cpx + t*t*tx,
-                      m*m*cy + 2*m*t*cpy + t*t*ty]);
-          }
-          cx = tx; cy = ty;
-        } else if (cmd[0] === 'C') {
-          var p1x = cmd[1], p1y = cmd[2], p2x = cmd[3], p2y = cmd[4], tx = cmd[5], ty = cmd[6];
-          for (var j = 1; j <= n; j++) {
-            var t = j/n, m = 1-t;
-            pts.push([m*m*m*cx + 3*m*m*t*p1x + 3*m*t*t*p2x + t*t*t*tx,
-                      m*m*m*cy + 3*m*m*t*p1y + 3*m*t*t*p2y + t*t*t*ty]);
-          }
-          cx = tx; cy = ty;
-        }
-      }
-      return pts;
-    }
-
-    /* Build arc-length lookup table so animation runs at constant visual speed */
-    function cumArcs(pts) {
-      var a = [0];
-      for (var i = 1; i < pts.length; i++) {
-        var dx = pts[i][0] - pts[i-1][0], dy = pts[i][1] - pts[i-1][1];
-        a.push(a[i-1] + Math.sqrt(dx*dx + dy*dy));
-      }
-      return a;
-    }
-
-    /* Pre-process all strokes once at startup */
-    var N = 120;
-    var proc = strokes.map(function(s) {
-      var pts = sampleCmds(s.cmds, N), a = cumArcs(pts);
-      return { pts: pts, arcs: a, total: a[a.length-1], w: s.w };
-    });
-    var grand = proc.reduce(function(s, p) { return s + p.total; }, 0);
-
-    function initSig() {
-      var cv = document.getElementById('sigCanvas');
-      if (!cv) return;
-
-      /* Scale canvas for HiDPI / Retina displays */
-      var dpr = window.devicePixelRatio || 1;
-      cv.width  = CW * dpr; cv.height = CH * dpr;
-      cv.style.width  = CW + 'px';
-      cv.style.height = CH + 'px';
-
-      var ctx = cv.getContext('2d');
-      ctx.scale(dpr, dpr);
-      ctx.strokeStyle = PURPLE;
-      ctx.lineCap  = 'round';
-      ctx.lineJoin = 'round';
-
-      var DUR = 2000, DELAY = 450, t0 = null;
-
-      /* Ease-in-out: smooth start and end for the draw animation */
-      function ease(t) { return t < .5 ? 2*t*t : -1 + (4-2*t)*t; }
-
-      /* Each frame: advance the "head" pointer through total arc length,
-         draw all segments up to head position with per-segment lineWidth */
-      function frame(ts) {
-        if (!t0) t0 = ts;
-        var raw  = Math.min((ts - t0) / DUR, 1);
-        var head = ease(raw) * grand;  // current draw position in arc-length units
-        ctx.clearRect(0, 0, CW, CH);
-        var rem = head;
-        for (var si = 0; si < proc.length; si++) {
-          if (rem <= 0) break;
-          var s    = proc[si];
-          var draw = Math.min(rem, s.total);
-          rem -= s.total;
-          for (var i = 1; i < s.pts.length; i++) {
-            if (s.arcs[i] > draw) break;
-            ctx.lineWidth = s.w(s.arcs[i] / s.total);  // variable pressure
-            ctx.beginPath();
-            ctx.moveTo(s.pts[i-1][0], s.pts[i-1][1]);
-            ctx.lineTo(s.pts[i][0],   s.pts[i][1]);
-            ctx.stroke();
-          }
-        }
-        if (raw < 1) requestAnimationFrame(frame);
-      }
-
-      /* Small delay before drawing starts so the page can settle */
-      setTimeout(function() { requestAnimationFrame(frame); }, DELAY);
-    }
-
-    /* Replay signature animation on bfcache restore
-       (when user navigates back and browser restores the page from cache).
-       event.persisted is true in that case — without this the canvas is blank. */
-    window.addEventListener('pageshow', function(e) {
-      if (e.persisted) initSig();
-    });
-
-    /* Run after DOM is ready */
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initSig);
-    } else {
-      initSig();
-    }
-  })();
+  window.addEventListener('pageshow',function(e){if(e.persisted)initSig();});
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',initSig);}else{initSig();}
+})();
 
 })();
 </script>
 </body>
 </html>
-
-
-
