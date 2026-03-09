@@ -167,7 +167,10 @@
 
   /* ── About Grid ──────────────────────────────────────────────────────── */
   .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px}
-  .about-block{padding:32px;background:var(--surface);border:1px solid var(--border)}
+  .about-block{padding:32px;background:var(--surface);border:1px solid var(--border);transition:border-color .3s,transform .3s;position:relative;overflow:hidden}
+  .about-block::after{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--magenta);transform:scaleY(0);transform-origin:bottom;transition:transform .3s}
+  .about-block:hover{border-color:var(--magenta-dim);transform:translateX(4px)}
+  .about-block:hover::after{transform:scaleY(1)}
   .about-block-label{font-size:10px;color:var(--magenta);letter-spacing:.2em;text-transform:uppercase;margin-bottom:16px}
   .about-block-text{font-size:12px;color:var(--text-muted);line-height:1.9}
   .about-block-text strong{color:var(--text);font-weight:700}
@@ -259,6 +262,8 @@
     .project-card.featured:hover .project-title{color:var(--text)}
     .achievement-item:hover{transform:none;border-color:var(--border)}
     .achievement-item:hover::after{transform:scaleY(0)}
+    .about-block:hover{transform:none;border-color:var(--border)}
+    .about-block:hover::after{transform:scaleY(0)}
     .skill-item:hover{border-color:var(--border)}
     .btn-primary:hover{transform:none;box-shadow:none}
     .btn-primary:hover::after{transform:translateX(-100%)}
