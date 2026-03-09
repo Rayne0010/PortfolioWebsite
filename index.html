@@ -603,7 +603,7 @@
       navLogo.style.opacity   = '1';
     });
   }
-  if (navLogo) {
+  if (navLogo && !isTouch) {
     navLogo.addEventListener('click', function(e) {
       e.preventDefault();
       smoothScrollTo(0, 800);
