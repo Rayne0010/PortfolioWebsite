@@ -689,18 +689,7 @@
      triggering the CSS transition. threshold:0.1 fires at 10% visibility. */
   var io = new IntersectionObserver(function(entries) {
     entries.forEach(function(e) {
-      if (e.isIntersecting) {
-        var el = e.target;
-        /* Double rAF: waits for the browser to paint the opacity:0 initial
-           state before adding .visible. Without this, elements already in
-           the viewport on load receive .visible before their first paint,
-           so there is no before-state to transition from and they snap in. */
-        requestAnimationFrame(function() {
-          requestAnimationFrame(function() {
-            el.classList.add('visible');
-          });
-        });
-      }
+      if (e.isIntersecting) e.target.classList.add('visible');
     });
   }, { threshold: .1 });
   document.querySelectorAll('.reveal').forEach(function(el) { io.observe(el); });
@@ -957,5 +946,6 @@
 </script>
 </body>
 </html>
+
 
 
